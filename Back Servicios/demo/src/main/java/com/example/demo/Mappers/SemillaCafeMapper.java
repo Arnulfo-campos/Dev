@@ -12,15 +12,23 @@ public interface SemillaCafeMapper {
     @Mapping(source = "tipoVariedad", target = "tipoVariedad")
     @Mapping(source = "origen", target = "origen")
     @Mapping(source = "certificada", target = "certificada")
-    @Mapping(source = "cantidadKg", target = "cantidadKg")
-    @Mapping(source = "germinacion.id", target = "idGerminacion")
+    @Mapping(source = "cantidadKG", target = "cantidadKG")
+    @Mapping(source = "fechaRegistro", target = "fechaRegistro")
+    @Mapping(source = "fechaAdquisicion", target = "fechaAdquisicion")
+    @Mapping(source = "germinacion.id", target = "germinacionId")
+    @Mapping(source = "loteCafe.id", target = "loteCafeId")
+    @Mapping(source = "imagen", target = "imagen")
     SemillaCafeDTO semillaCafeToDTO(SemillaCafe semillaCafe);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "tipoVariedad", target = "tipoVariedad")
     @Mapping(source = "origen", target = "origen")
-    @Mapping(source = "certificada", target = "certificada")
-    @Mapping(source = "cantidadKg", target = "cantidadKg")
-    @Mapping(source = "idGerminacion", target = "germinacion.id")
-    SemillaCafe dtoToSemillaCafe(SemillaCafeDTO dto);
-}
+    @Mapping(source = "certificada",target = "certificada")
+    @Mapping(source = "cantidadKG", target = "cantidadKG")
+    @Mapping(source = "fechaRegistro", target = "fechaRegistro")
+    @Mapping(source = "fechaAdquisicion", target = "fechaAdquisicion")
+    @Mapping(source = "germinacionId", target = "germinacion.id")
+    @Mapping(source = "loteCafeId", target = "loteCafe.id")
+    @Mapping(source = "imagen", target = "imagen")
+    SemillaCafe dtoToSemillaCafe(SemillaCafeDTO semillaCafeDTO);
+    }

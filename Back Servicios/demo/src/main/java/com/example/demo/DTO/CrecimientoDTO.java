@@ -2,7 +2,7 @@ package com.example.demo.DTO;
 
 import java.util.Date;
 
-public class GerminacionDTO {
+public class CrecimientoDTO {
     private Long id;
     private Date fechaSembrado;
     private Integer areaLote;

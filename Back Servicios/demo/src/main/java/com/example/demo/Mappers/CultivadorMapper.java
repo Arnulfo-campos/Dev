@@ -14,13 +14,15 @@ public interface CultivadorMapper {
     @Mapping(source = "direccion", target = "direccion")
     @Mapping(source = "telefono", target = "telefono")
     @Mapping(source = "correo", target = "correo")
+    @Mapping(source = "imagen", target = "imagen")
     CultivadorDTO cultivadorToDTO(Cultivador cultivador);
 
-    @Mapping(target = "id", ignore = true) // Ignora el id porque probablemente se genere automáticamente
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "nombre", target = "nombre")
     @Mapping(source = "apellido", target = "apellido")
     @Mapping(source = "direccion", target = "direccion")
     @Mapping(source = "telefono", target = "telefono")
     @Mapping(source = "correo", target = "correo")
+    @Mapping(source = "imagen", target = "imagen")
     Cultivador dtoToCultivador(CultivadorDTO cultivadorDTO);
 }

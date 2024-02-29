@@ -2,14 +2,14 @@ package com.example.demo.DTO;
 
 import java.util.Date;
 
-public class FungicidaDTO {
+public class FungicidaCrecimientoDTO {
     private Long id;
     private String nombre;
     private Double cantidadAplicada;
     private Date fechaAplicacion;
     private String formulaAplicada;
     private byte[] imagen;
-    private Long germinacionId;
+    private Long sembradoId;
 
     // Getters y setters
 
@@ -61,11 +61,11 @@ public class FungicidaDTO {
         this.imagen = imagen;
     }
 
-    public Long getGerminacionId() {
-        return germinacionId;
+    public Long getSembradoId() {
+        return sembradoId;
     }
 
-    public void setGerminacionId(Long germinacionId) {
-        this.germinacionId = germinacionId;
+    public void setSembradoId(Long sembradoId) {
+        this.sembradoId = sembradoId;
     }
 }

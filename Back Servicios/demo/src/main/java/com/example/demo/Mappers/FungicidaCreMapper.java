@@ -1,12 +1,12 @@
 package com.example.demo.Mappers;
 
-import com.example.demo.DTO.FungicidaDTO;
-import com.example.demo.persistance.Entities.Fungicida;
+import com.example.demo.DTO.FungicidaCrecimientoDTO;
+import com.example.demo.persistance.Entities.FungicidaCrecimiento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface FungicidaMapper {
+public interface FungicidaCreMapper {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "nombre", target = "nombre")
@@ -14,8 +14,8 @@ public interface FungicidaMapper {
     @Mapping(source = "fechaAplicacion", target = "fechaAplicacion")
     @Mapping(source = "formulaAplicada", target = "formulaAplicada")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "germinacionId", target = "germinacionId")
-    FungicidaDTO fungicidaToDTO(Fungicida fungicida);
+    @Mapping(source = "sembradoId", target = "sembradoId")
+    FungicidaCrecimientoDTO fungicidaCrecimientoToDTO(FungicidaCrecimiento fungicidaCrecimiento);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "nombre", target = "nombre")
@@ -23,6 +23,6 @@ public interface FungicidaMapper {
     @Mapping(source = "fechaAplicacion", target = "fechaAplicacion")
     @Mapping(source = "formulaAplicada", target = "formulaAplicada")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "germinacionId", target = "germinacionId")
-    Fungicida dtoToFungicida(FungicidaDTO fungicidaDTO);
+    @Mapping(source = "sembradoId", target = "sembradoId")
+    FungicidaCrecimiento dtoToFungicidaCrecimiento(FungicidaCrecimientoDTO fungicidaCrecimientoDTO);
 }
