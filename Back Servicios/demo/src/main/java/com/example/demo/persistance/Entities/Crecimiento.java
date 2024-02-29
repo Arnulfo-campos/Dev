@@ -3,52 +3,40 @@ package com.example.demo.persistance.Entities;
 import jakarta.persistence.*;
 import java.util.Date;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
-
 @Entity
-@Table(name = "Germinacion")
-public class Germinacion {
+@Table(name = "Crecimiento")
+public class Crecimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "Profundidad")
-    private Double profundidad;
+    @Column(name = "Fecha_Sembrado")
+    private Date fechaSembrado;
+    
+    @Column(name = "Area_Lote")
+    private Integer areaLote;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "Tipo_Germinador")
-    private String tipoGerminador;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "Sombra")
     private String sombra;
     
-    @Column(name = "Area")
-    private Integer area;
+    @Column(name = "Distancia_Siembra")
+    private Integer distanciaSiembra;
     
-    @Column(name = "Arena")
-    private Boolean arena;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Tipo_Trazo")
+    private String tipoTrazo;
     
-    @Column(name = "Profundidad_Arena")
-    private Double profundidadArena;
+    @Column(name = "Profundidad_Ahoyado")
+    private Integer profundidadAhoyado;
     
-    @Column(name = "Peso_Arena")
-    private Double pesoArena;
+    @Column(name = "Chapolas_Sembradas")
+    private Integer chapolasSembradas;
     
-    @Column(name = "Cantidad_Chapolas_Obtenidas")
-    private Integer cantidadChapolasObtenidas;
+    @Column(name = "Chapolas_Finales")
+    private Integer chapolasFinales;
     
-    @Column(name = "Observaciones", columnDefinition = "TEXT")
-    private String observaciones;
-    
-    @Column(name = "Fecha_Final_Germinacion")
-    private Date fechaFinalGerminacion;
-    
-    @Column(name = "Fecha_Registro")
-    private Date fechaRegistro;
-    
-    @Lob
-    private byte[] imagen;
+    @Column(name = "Fecha_Final")
+    private Date fechaFinal;
     
     @Column(name = "Departamento", length = 255)
     private String departamento;
@@ -77,8 +65,14 @@ public class Germinacion {
     @Column(name = "Humedad_Media")
     private Double humedadMedia;
     
+    @Column(name = "Observaciones", columnDefinition = "TEXT")
+    private String observaciones;
+    
+    @Lob
+    private byte[] imagen;
+
     @ManyToOne
-    @JoinColumn(name = "Cultivador_ID")
+    @JoinColumn(name = "Cultivador_Id")
     private Cultivador cultivador;
 
     public Long getId() {
@@ -89,20 +83,20 @@ public class Germinacion {
         this.id = id;
     }
 
-    public Double getProfundidad() {
-        return profundidad;
+    public Date getFechaSembrado() {
+        return fechaSembrado;
     }
 
-    public void setProfundidad(Double profundidad) {
-        this.profundidad = profundidad;
+    public void setFechaSembrado(Date fechaSembrado) {
+        this.fechaSembrado = fechaSembrado;
     }
 
-    public String getTipoGerminador() {
-        return tipoGerminador;
+    public Integer getAreaLote() {
+        return areaLote;
     }
 
-    public void setTipoGerminador(String tipoGerminador) {
-        this.tipoGerminador = tipoGerminador;
+    public void setAreaLote(Integer areaLote) {
+        this.areaLote = areaLote;
     }
 
     public String getSombra() {
@@ -113,76 +107,52 @@ public class Germinacion {
         this.sombra = sombra;
     }
 
-    public Integer getArea() {
-        return area;
+    public Integer getDistanciaSiembra() {
+        return distanciaSiembra;
     }
 
-    public void setArea(Integer area) {
-        this.area = area;
+    public void setDistanciaSiembra(Integer distanciaSiembra) {
+        this.distanciaSiembra = distanciaSiembra;
     }
 
-    public Boolean getArena() {
-        return arena;
+    public String getTipoTrazo() {
+        return tipoTrazo;
     }
 
-    public void setArena(Boolean arena) {
-        this.arena = arena;
+    public void setTipoTrazo(String tipoTrazo) {
+        this.tipoTrazo = tipoTrazo;
     }
 
-    public Double getProfundidadArena() {
-        return profundidadArena;
+    public Integer getProfundidadAhoyado() {
+        return profundidadAhoyado;
     }
 
-    public void setProfundidadArena(Double profundidadArena) {
-        this.profundidadArena = profundidadArena;
+    public void setProfundidadAhoyado(Integer profundidadAhoyado) {
+        this.profundidadAhoyado = profundidadAhoyado;
     }
 
-    public Double getPesoArena() {
-        return pesoArena;
+    public Integer getChapolasSembradas() {
+        return chapolasSembradas;
     }
 
-    public void setPesoArena(Double pesoArena) {
-        this.pesoArena = pesoArena;
+    public void setChapolasSembradas(Integer chapolasSembradas) {
+        this.chapolasSembradas = chapolasSembradas;
     }
 
-    public Integer getCantidadChapolasObtenidas() {
-        return cantidadChapolasObtenidas;
+    public Integer getChapolasFinales() {
+        return chapolasFinales;
     }
 
-    public void setCantidadChapolasObtenidas(Integer cantidadChapolasObtenidas) {
-        this.cantidadChapolasObtenidas = cantidadChapolasObtenidas;
+    public void setChapolasFinales(Integer chapolasFinales) {
+        this.chapolasFinales = chapolasFinales;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public Date getFechaFinal() {
+        return fechaFinal;
     }
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public Date getFechaFinalGerminacion() {
-        return fechaFinalGerminacion;
-    }
-
-    public void setFechaFinalGerminacion(Date fechaFinalGerminacion) {
-        this.fechaFinalGerminacion = fechaFinalGerminacion;
-    }
-
-    public Date getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(Date fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
 
     public String getDepartamento() {
@@ -255,6 +225,22 @@ public class Germinacion {
 
     public void setHumedadMedia(Double humedadMedia) {
         this.humedadMedia = humedadMedia;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
     public Cultivador getCultivador() {

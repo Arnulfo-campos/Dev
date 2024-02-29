@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Fungicida")
-public class Fungicida {
+@Table(name = "FungicidaCrecimiento")
+public class FungicidaCrecimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "Nombre", length = 255)
     private String nombre;
     
     @Column(name = "Cantidad_Aplicada")
@@ -24,10 +23,10 @@ public class Fungicida {
     
     @Lob
     private byte[] imagen;
-    
+
     @ManyToOne
-    @JoinColumn(name = "Germinacion_ID")
-    private Germinacion germinacion;
+    @JoinColumn(name = "Sembrado_ID")
+    private Crecimiento crecimiento;
 
     public Long getId() {
         return id;
@@ -77,12 +76,12 @@ public class Fungicida {
         this.imagen = imagen;
     }
 
-    public Germinacion getGerminacion() {
-        return germinacion;
+    public Crecimiento getCrecimiento() {
+        return crecimiento;
     }
 
-    public void setGerminacion(Germinacion germinacion) {
-        this.germinacion = germinacion;
+    public void setCrecimiento(Crecimiento crecimiento) {
+        this.crecimiento = crecimiento;
     }
     
     // Getters y setters
