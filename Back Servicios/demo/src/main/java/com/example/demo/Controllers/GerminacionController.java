@@ -47,7 +47,7 @@ public class GerminacionController {
 
     @GetMapping
     public ResponseEntity<? extends Object> obtenerTodosLosCultivadores() {
-        List<GerminacionDTO> germinaciones = germinacionService.obtenerTodosLosGerminadores();
+        List<GerminacionDTO> germinaciones = germinacionService.obtenerTodasLasGerminaciones();
         return new ResponseEntity<>(germinaciones, HttpStatus.OK);
     }
 

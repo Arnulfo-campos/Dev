@@ -1,13 +1,11 @@
 package com.example.demo.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.example.demo.DTO.LoteCafeDTO;
 import com.example.demo.Mappers.LoteCafeMapper;
 import com.example.demo.persistance.Entities.LoteCafe;
 import com.example.demo.persistance.Repository.LoteCafeRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class LoteCafeService {
-    
+
     private final LoteCafeRepository loteCafeRepository;
     private final LoteCafeMapper loteCafeMapper;
 
@@ -41,12 +39,18 @@ public class LoteCafeService {
         Optional<LoteCafe> loteCafeOptional = loteCafeRepository.findById(id);
         if (loteCafeOptional.isPresent()) {
             LoteCafe loteCafe = loteCafeOptional.get();
-            loteCafe.setCiudad(loteCafeDTO.getCiudad());
-            // Establecer otros campos según sea necesario
+            // Actualizar los atributos según sea necesario
+            // loteCafe.setGerminacion(loteCafeDTO.getGerminacion());
+            //loteCafe.setCultivador(loteCafeDTO.getCultivadorId());
+            //loteCafe.setCrecimiento(loteCafeDTO.getCrecimiento());
+            //loteCafe.setEnvasado(loteCafeDTO.getEnvasadoId());
+            //loteCafe.setFechaRegistro(loteCafeDTO.getFechaRegistro());
+            //loteCafe.setFechaLastUPD(loteCafeDTO.getFechaLastUPD());
+            // Guardar la actualización
             LoteCafe loteCafeActualizado = loteCafeRepository.save(loteCafe);
             return loteCafeMapper.loteCafeToDTO(loteCafeActualizado);
         } else {
-            return null; // o lanzar una excepción, dependiendo de tu manejo de errores
+            return null; // o lanzar una excepción, según sea necesario
         }
     }
 
@@ -54,9 +58,9 @@ public class LoteCafeService {
         loteCafeRepository.deleteById(id);
     }
 
-    public List<LoteCafeDTO> obtenerTodosLosLotes() {
-        List<LoteCafe> loteCafes = (List<LoteCafe>) loteCafeRepository.findAll();
-        return loteCafes.stream()
+    public List<LoteCafeDTO> obtenerTodosLosLotesCafe() {
+        List<LoteCafe> lotesCafe = (List<LoteCafe>) loteCafeRepository.findAll();
+        return lotesCafe.stream()
                 .map(loteCafeMapper::loteCafeToDTO)
                 .collect(Collectors.toList());
     }

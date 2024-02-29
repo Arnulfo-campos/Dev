@@ -1,15 +1,10 @@
 package com.example.demo.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.DTO.GerminacionDTO;
-import com.example.demo.Mappers.CultivadorMapper;
 import com.example.demo.Mappers.GerminacionMapper;
 import com.example.demo.persistance.Entities.Germinacion;
-import com.example.demo.persistance.Repository.CultivadorRepository;
 import com.example.demo.persistance.Repository.GerminacionRepository;
-
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -30,8 +25,8 @@ public class GerminacionService {
     @Transactional
     public GerminacionDTO crearGerminacion(GerminacionDTO germinacionDTO) {
         Germinacion germinacion = germinacionMapper.dtoToGerminacion(germinacionDTO);
-        Germinacion germinacionGuardado = germinacionRepository.save(germinacion);
-        return germinacionMapper.germinacionToDTO(germinacionGuardado);
+        Germinacion germinacionGuardada = germinacionRepository.save(germinacion);
+        return germinacionMapper.germinacionToDTO(germinacionGuardada);
     }
 
     public GerminacionDTO obtenerGerminacionPorId(Long id) {
@@ -44,12 +39,26 @@ public class GerminacionService {
         Optional<Germinacion> germinacionOptional = germinacionRepository.findById(id);
         if (germinacionOptional.isPresent()) {
             Germinacion germinacion = germinacionOptional.get();
-            germinacion.setObservaciones(germinacionDTO.getObservaciones());
-            // Establecer otros campos según sea necesario
-            Germinacion germinacionActualizado = germinacionRepository.save(germinacion);
-            return germinacionMapper.germinacionToDTO(germinacionActualizado);
+            // Actualizar los atributos según sea necesario
+            germinacion.setProfundidad(germinacionDTO.getProfundidad());
+            germinacion.setArea(germinacionDTO.getArea());
+            germinacion.setArena(germinacionDTO.getArena());
+            germinacion.setProfundidadArena(germinacionDTO.getProfundidadArena());
+            germinacion.setPesoArena(germinacionDTO.getPesoArena());
+            germinacion.setCantidadChapolasObtenidas(germinacionDTO.getCantidadChapolasObtenidas());
+            germinacion.setFechaFinalGerminacion(germinacionDTO.getFechaFinalGerminacion());
+            germinacion.setFechaRegistro(germinacionDTO.getFechaRegistro());
+            germinacion.setImagen(germinacionDTO.getImagen());
+            germinacion.setUbicacionLatitud(germinacionDTO.getUbicacionLatitud());
+            germinacion.setUbicacionLongitud(germinacionDTO.getUbicacionLongitud());
+            germinacion.setAltitud(germinacionDTO.getAltitud());
+            germinacion.setTemperaturaMedia(germinacionDTO.getTemperaturaMedia());
+            germinacion.setHumedadMedia(germinacionDTO.getHumedadMedia());
+            // Guardar la actualización
+            Germinacion germinacionActualizada = germinacionRepository.save(germinacion);
+            return germinacionMapper.germinacionToDTO(germinacionActualizada);
         } else {
-            return null; // o lanzar una excepción, dependiendo de tu manejo de errores
+            return null; // o lanzar una excepción, según sea necesario
         }
     }
 
@@ -57,7 +66,7 @@ public class GerminacionService {
         germinacionRepository.deleteById(id);
     }
 
-    public List<GerminacionDTO> obtenerTodosLosGerminadores() {
+    public List<GerminacionDTO> obtenerTodasLasGerminaciones() {
         List<Germinacion> germinaciones = (List<Germinacion>) germinacionRepository.findAll();
         return germinaciones.stream()
                 .map(germinacionMapper::germinacionToDTO)

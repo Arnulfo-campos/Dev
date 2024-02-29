@@ -25,7 +25,7 @@ public class SemillaCafeController {
     @PostMapping
     public ResponseEntity<? extends Object> crearSemilla(@RequestBody SemillaCafeDTO semillaCafeDTO) {
         try {
-            SemillaCafeDTO newSemilla = semillaService.crearSemilla(semillaCafeDTO);
+            SemillaCafeDTO newSemilla = semillaService.crearSemillaCafe(semillaCafeDTO);
             if (newSemilla != null) {
                 return new ResponseEntity<>(newSemilla, HttpStatus.CREATED);
             } else {
@@ -40,7 +40,7 @@ public class SemillaCafeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<? extends Object> obtenerSemillaPorId(@PathVariable Long id) {
-        SemillaCafeDTO semillaDTO = semillaService.obtenerSemillaPorId(id);
+        SemillaCafeDTO semillaDTO = semillaService.obtenerSemillaCafePorId(id);
         if (semillaDTO != null) {
             return new ResponseEntity<>(semillaDTO, HttpStatus.OK);
         } else {
@@ -50,14 +50,14 @@ public class SemillaCafeController {
 
     @GetMapping
     public ResponseEntity<? extends Object> obtenerTodosLosCultivadores() {
-        List<SemillaCafeDTO> semillas = semillaService.obtenerTodosLasSemillas();
+        List<SemillaCafeDTO> semillas = semillaService.obtenerTodasLasSemillasCafe();
         return new ResponseEntity<>(semillas, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<? extends Object> actualizarCultivador(@PathVariable Long id, @RequestBody SemillaCafeDTO semillaCafeDTO) {
         try {
-            SemillaCafeDTO updatedSemilla = semillaService.actualizarSemilla(id, semillaCafeDTO);
+            SemillaCafeDTO updatedSemilla = semillaService.actualizarSemillaCafe(id, semillaCafeDTO);
             if (updatedSemilla != null) {
                 return new ResponseEntity<>(updatedSemilla, HttpStatus.OK);
             } else {
@@ -73,7 +73,7 @@ public class SemillaCafeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<? extends Object> eliminarCultivador(@PathVariable Long id) {
         try {
-            semillaService.eliminarSemilla(id);
+            semillaService.eliminarSemillaCafe(id);
             return new ResponseEntity<>("Semilla eliminada exitosamente", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -39,12 +39,17 @@ public class CultivadorService {
         Optional<Cultivador> cultivadorOptional = cultivadorRepository.findById(id);
         if (cultivadorOptional.isPresent()) {
             Cultivador cultivador = cultivadorOptional.get();
+            // Actualizar los atributos según sea necesario
             cultivador.setNombre(cultivadorDTO.getNombre());
-            // Establecer otros campos según sea necesario
+            cultivador.setApellido(cultivadorDTO.getApellido());
+            cultivador.setDireccion(cultivadorDTO.getDireccion());
+            cultivador.setTelefono(cultivadorDTO.getTelefono());
+            cultivador.setCorreo(cultivadorDTO.getCorreo());
+            // Guardar la actualización
             Cultivador cultivadorActualizado = cultivadorRepository.save(cultivador);
             return cultivadorMapper.cultivadorToDTO(cultivadorActualizado);
         } else {
-            return null; // o lanzar una excepción, dependiendo de tu manejo de errores
+            return null; // o lanzar una excepción, según sea necesario
         }
     }
 

@@ -47,7 +47,7 @@ public class LoteCafeController {
 
     @GetMapping
     public ResponseEntity<? extends Object> obtenerTodosLosLotes() {
-        List<LoteCafeDTO> lotes = loteCafeService.obtenerTodosLosLotes();
+        List<LoteCafeDTO> lotes = loteCafeService.obtenerTodosLosLotesCafe();
         return new ResponseEntity<>(lotes, HttpStatus.OK);
     }
 

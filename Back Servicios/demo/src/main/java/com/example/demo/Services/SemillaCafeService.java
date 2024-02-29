@@ -1,14 +1,11 @@
 package com.example.demo.Services;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.DTO.CultivadorDTO;
 import com.example.demo.DTO.SemillaCafeDTO;
 import com.example.demo.Mappers.SemillaCafeMapper;
-import com.example.demo.persistance.Entities.Cultivador;
 import com.example.demo.persistance.Entities.SemillaCafe;
 import com.example.demo.persistance.Repository.SemillaCafeRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,50 +13,57 @@ import java.util.stream.Collectors;
 
 @Service
 public class SemillaCafeService {
-    
-    private final SemillaCafeRepository semillaRepository;
-    private final SemillaCafeMapper semillaMapper;
 
-    public SemillaCafeService(SemillaCafeRepository semillaRepository, SemillaCafeMapper semillaMapper) {
-        this.semillaRepository = semillaRepository;
-        this.semillaMapper = semillaMapper;
+    private final SemillaCafeRepository semillaCafeRepository;
+    private final SemillaCafeMapper semillaCafeMapper;
+
+    public SemillaCafeService(SemillaCafeRepository semillaCafeRepository, SemillaCafeMapper semillaCafeMapper) {
+        this.semillaCafeRepository = semillaCafeRepository;
+        this.semillaCafeMapper = semillaCafeMapper;
     }
 
     @Transactional
-    public SemillaCafeDTO crearSemilla(SemillaCafeDTO semillaCafeDTO) {
-        SemillaCafe semillaCafe = semillaMapper.dtoToSemillaCafe(semillaCafeDTO);
-        SemillaCafe semillaGuardado = semillaRepository.save(semillaCafe);
-        return semillaMapper.semillaCafeToDTO(semillaGuardado);
+    public SemillaCafeDTO crearSemillaCafe(SemillaCafeDTO semillaCafeDTO) {
+        SemillaCafe semillaCafe = semillaCafeMapper.dtoToSemillaCafe(semillaCafeDTO);
+        SemillaCafe semillaCafeGuardada = semillaCafeRepository.save(semillaCafe);
+        return semillaCafeMapper.semillaCafeToDTO(semillaCafeGuardada);
     }
-  
 
-    public SemillaCafeDTO obtenerSemillaPorId(Long id) {
-        Optional<SemillaCafe> semillaOptional = semillaRepository.findById(id);
-        return semillaOptional.map(semillaMapper::semillaCafeToDTO).orElse(null);
+    public SemillaCafeDTO obtenerSemillaCafePorId(Long id) {
+        Optional<SemillaCafe> semillaCafeOptional = semillaCafeRepository.findById(id);
+        return semillaCafeOptional.map(semillaCafeMapper::semillaCafeToDTO).orElse(null);
     }
 
     @Transactional
-    public SemillaCafeDTO actualizarSemilla(Long id, SemillaCafeDTO semillaCafeDTO) {
-        Optional<SemillaCafe> semillaOptional = semillaRepository.findById(id);
-        if (semillaOptional.isPresent()) {
-            SemillaCafe semilla = semillaOptional.get();
-            semilla.setTipoVariedad(semillaCafeDTO.getTipoVariedad());
-            // Establecer otros campos según sea necesario
-            SemillaCafe semillaActualizada = semillaRepository.save(semilla);
-            return semillaMapper.semillaCafeToDTO(semillaActualizada);
+    public SemillaCafeDTO actualizarSemillaCafe(Long id, SemillaCafeDTO semillaCafeDTO) {
+        Optional<SemillaCafe> semillaCafeOptional = semillaCafeRepository.findById(id);
+        if (semillaCafeOptional.isPresent()) {
+            SemillaCafe semillaCafe = semillaCafeOptional.get();
+            // Actualizar los atributos según sea necesario
+            semillaCafe.setTipoVariedad(semillaCafeDTO.getTipoVariedad());
+            semillaCafe.setOrigen(semillaCafeDTO.getOrigen());
+            semillaCafe.setCertificada(semillaCafeDTO.isCertificada());
+           // semillaCafe.setCantidadKg(semillaCafeDTO.getCantidadKG());
+            semillaCafe.setFechaRegistro(semillaCafeDTO.getFechaRegistro());
+            semillaCafe.setFechaAdquisicion(semillaCafeDTO.getFechaAdquisicion());
+          //  semillaCafe.setGerminacion(semillaCafeDTO.getGerminacionId());
+           // semillaCafe.setLoteCafe(semillaCafeDTO.getLoteCafeId());
+            // Guardar la actualización
+            SemillaCafe semillaCafeActualizada = semillaCafeRepository.save(semillaCafe);
+            return semillaCafeMapper.semillaCafeToDTO(semillaCafeActualizada);
         } else {
-            return null; // o lanzar una excepción, dependiendo de tu manejo de errores
+            return null; // o lanzar una excepción, según sea necesario
         }
     }
 
-    public void eliminarSemilla(Long id) {
-        semillaRepository.deleteById(id);
+    public void eliminarSemillaCafe(Long id) {
+        semillaCafeRepository.deleteById(id);
     }
 
-    public List<SemillaCafeDTO> obtenerTodosLasSemillas() {
-        List<SemillaCafe> semillas = (List<SemillaCafe>) semillaRepository.findAll();
-        return semillas.stream()
-                .map(semillaMapper::semillaCafeToDTO)
+    public List<SemillaCafeDTO> obtenerTodasLasSemillasCafe() {
+        List<SemillaCafe> semillasCafe = (List<SemillaCafe>) semillaCafeRepository.findAll();
+        return semillasCafe.stream()
+                .map(semillaCafeMapper::semillaCafeToDTO)
                 .collect(Collectors.toList());
     }
 }
