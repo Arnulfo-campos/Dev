@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "ControlHierbas")
+@Table(name = "control_hierbas")
 public class ControlHierbas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,16 +13,16 @@ public class ControlHierbas {
     @Enumerated(EnumType.STRING)
     private TipoControl tipo;
     
-    @Column(name = "Cantidad_Aplicada")
+    //@Column(name = "Cantidad_Aplicada")
     private Double cantidadAplicada;
     
-    @Column(name = "Fecha_Inicio")
+   //@Column(name = "Fecha_Inicio")
     private Date fechaInicio;
     
-    @Column(name = "Fecha_Final")
+    //@Column(name = "Fecha_Final")
     private Date fechaFinal;
     
-    @Column(name = "Proceso_Control", columnDefinition = "TEXT")
+    //@Column(name = "Proceso_Control", columnDefinition = "TEXT")
     private String procesoControl;
     
     @Lob

@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "Lote_cafe")
+@Table(name = "lote_cafe")
 public class LoteCafe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

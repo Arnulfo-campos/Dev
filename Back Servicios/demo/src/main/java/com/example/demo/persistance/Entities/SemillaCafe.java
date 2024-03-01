@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Semilla_Cafe")
+@Table(name = "semilla_Cafe")
 public class SemillaCafe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

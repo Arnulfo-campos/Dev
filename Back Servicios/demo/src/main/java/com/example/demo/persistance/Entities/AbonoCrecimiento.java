@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "AbonoCrecimiento")
+@Table(name = "abono_crecimiento")
 public class AbonoCrecimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,13 +12,13 @@ public class AbonoCrecimiento {
     
     private String nombre;
     
-    @Column(name = "Cantidad_Aplicada")
+   // @Column(name = "Cantidad_Aplicada")
     private Double cantidadAplicada;
     
-    @Column(name = "Fecha_Aplicacion")
+    //@Column(name = "Fecha_Aplicacion")
     private Date fechaAplicacion;
     
-    @Column(name = "Formula_Aplicada", columnDefinition = "TEXT")
+    //@Column(name = "Formula_Aplicada", columnDefinition = "TEXT")
     private String formulaAplicada;
     
     @Lob

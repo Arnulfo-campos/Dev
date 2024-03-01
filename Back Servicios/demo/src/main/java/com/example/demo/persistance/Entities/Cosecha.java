@@ -4,29 +4,29 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Cosecha")
+@Table(name = "cosecha")
 public class Cosecha {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "Fecha_Inicio")
+    //@Column(name = "Fecha_Inicio")
     private Date fechaInicio;
     
-    @Column(name = "Fecha_Final")
+    //@Column(name = "Fecha_Final")
     private Date fechaFinal;
     
-    @Column(name = "Peso_Total_Cafe")
+    //@Column(name = "Peso_Total_Cafe")
     private Double pesoTotalCafe;
     
-    @Column(name = "Peso_Total_Cafe_Despulpado")
+    //@Column(name = "Peso_Total_Cafe_Despulpado")
     private Double pesoTotalCafeDespulpado;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "Tipo_Recoleccion")
+    //@Column(name = "Tipo_Recoleccion")
     private TipoReco tipoRecoleccion;
     
-    @Column(name = "Observaciones", columnDefinition = "TEXT")
+    //@Column(name = "Observaciones", columnDefinition = "TEXT")
     private String observaciones;
     
     @Lob

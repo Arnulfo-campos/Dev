@@ -1,13 +1,15 @@
 package com.example.demo.DTO;
 
+import java.util.Date;
+
 public class LoteCafeDTO {
     private Long id;
     private Long germinacionId;
     private Long cultivadorId;
     private Long crecimientoId;
     private Long envasadoId;
-    private String fechaRegistro;
-    private String fechaLastUPD;
+    private Date fechaRegistro;
+    private Date fechaLastUPD;
 
     // Getters y setters
 
@@ -51,19 +53,20 @@ public class LoteCafeDTO {
         this.envasadoId = envasadoId;
     }
 
-    public String getFechaRegistro() {
+    public Date getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(String fechaRegistro) {
+    public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getFechaLastUPD() {
+    public Date getFechaLastUPD() {
         return fechaLastUPD;
     }
 
-    public void setFechaLastUPD(String fechaLastUPD) {
+    public void setFechaLastUPD(Date fechaLastUPD) {
         this.fechaLastUPD = fechaLastUPD;
     }
+
 }
