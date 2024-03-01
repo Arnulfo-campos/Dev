@@ -12,13 +12,13 @@ public interface DescopeMapper {
     @Mapping(source = "fechaInicio", target = "fechaInicio")
     @Mapping(source = "fechaFinal", target = "fechaFinal")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "sembradoId", target = "sembradoId")
+    @Mapping(source = "crecimiento.id", target = "sembradoId")
     DescopeDTO descopeToDTO(Descope descope);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "fechaInicio", target = "fechaInicio")
     @Mapping(source = "fechaFinal", target = "fechaFinal")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "sembradoId", target = "sembradoId")
+    @Mapping(source = "sembradoId", target = "crecimiento.id")
     Descope dtoToDescope(DescopeDTO descopeDTO);
 }

@@ -14,7 +14,7 @@ public interface LavadoMapper {
     @Mapping(source = "pesoCafeFlotante", target = "pesoCafeFlotante")
     @Mapping(source = "imagen", target = "imagen")
     @Mapping(source = "observacion", target = "observacion")
-    @Mapping(source = "cosechaId", target = "cosechaId")
+    @Mapping(source = "cosecha.id", target = "cosechaId")
     LavadoDTO lavadoToDTO(Lavado lavado);
 
     @Mapping(target = "id", ignore = true)
@@ -23,6 +23,6 @@ public interface LavadoMapper {
     @Mapping(source = "pesoCafeFlotante", target = "pesoCafeFlotante")
     @Mapping(source = "imagen", target = "imagen")
     @Mapping(source = "observacion", target = "observacion")
-    @Mapping(source = "cosechaId", target = "cosechaId")
+    @Mapping(source = "cosechaId", target = "cosecha.id")
     Lavado dtoToLavado(LavadoDTO lavadoDTO);
 }

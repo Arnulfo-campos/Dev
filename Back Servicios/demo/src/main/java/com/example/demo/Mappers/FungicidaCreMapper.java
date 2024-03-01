@@ -14,7 +14,7 @@ public interface FungicidaCreMapper {
     @Mapping(source = "fechaAplicacion", target = "fechaAplicacion")
     @Mapping(source = "formulaAplicada", target = "formulaAplicada")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "sembradoId", target = "sembradoId")
+    @Mapping(source = "crecimiento.id", target = "sembradoId")
     FungicidaCrecimientoDTO fungicidaCrecimientoToDTO(FungicidaCrecimiento fungicidaCrecimiento);
 
     @Mapping(target = "id", ignore = true)
@@ -23,6 +23,6 @@ public interface FungicidaCreMapper {
     @Mapping(source = "fechaAplicacion", target = "fechaAplicacion")
     @Mapping(source = "formulaAplicada", target = "formulaAplicada")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "sembradoId", target = "sembradoId")
+    @Mapping(source = "sembradoId", target ="crecimiento.id")
     FungicidaCrecimiento dtoToFungicidaCrecimiento(FungicidaCrecimientoDTO fungicidaCrecimientoDTO);
 }

@@ -5,7 +5,7 @@ import com.example.demo.persistance.Entities.AbonoCrecimiento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {CrecimientoMapper.class})
 public interface AbonoCrecimientoMapper {
 
     @Mapping(source = "id", target = "id")
@@ -14,7 +14,7 @@ public interface AbonoCrecimientoMapper {
     @Mapping(source = "fechaAplicacion", target = "fechaAplicacion")
     @Mapping(source = "formulaAplicada", target = "formulaAplicada")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "sembradoId", target = "sembradoId")
+    @Mapping(source = "crecimiento.id", target = "sembradoId")
     AbonoCrecimientoDTO abonoCrecimientoToDTO(AbonoCrecimiento abonoCrecimiento);
 
     @Mapping(target = "id", ignore = true) // Ignora el id porque probablemente se genere automáticamente
@@ -23,6 +23,6 @@ public interface AbonoCrecimientoMapper {
     @Mapping(source = "fechaAplicacion", target = "fechaAplicacion")
     @Mapping(source = "formulaAplicada", target = "formulaAplicada")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "sembradoId", target = "sembradoId")
+    @Mapping(source = "sembradoId", target = "crecimiento.id")
     AbonoCrecimiento dtoToAbonoCrecimiento(AbonoCrecimientoDTO abonoCrecimientoDTO);
 }

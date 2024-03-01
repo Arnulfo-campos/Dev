@@ -30,7 +30,7 @@ public interface GerminacionMapper {
     @Mapping(source = "altitud", target = "altitud")
     @Mapping(source = "temperaturaMedia", target = "temperaturaMedia")
     @Mapping(source = "humedadMedia", target = "humedadMedia")
-    @Mapping(source = "cultivadorId", target = "cultivadorId")
+    @Mapping(source = "cultivador.id", target = "cultivadorId")
     GerminacionDTO germinacionToDTO(Germinacion germinacion);
 
     @Mapping(target = "id", ignore = true)
@@ -55,6 +55,6 @@ public interface GerminacionMapper {
     @Mapping(source = "altitud", target = "altitud")
     @Mapping(source = "temperaturaMedia", target = "temperaturaMedia")
     @Mapping(source = "humedadMedia", target = "humedadMedia")
-    @Mapping(source = "cultivadorId", target = "cultivadorId")
+    @Mapping(source = "cultivadorId", target = "cultivador.id")
     Germinacion dtoToGerminacion(GerminacionDTO germinacionDTO);
 }

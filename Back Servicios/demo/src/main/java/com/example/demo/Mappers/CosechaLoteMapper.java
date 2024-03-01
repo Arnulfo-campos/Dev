@@ -9,12 +9,12 @@ import org.mapstruct.Mapping;
 public interface CosechaLoteMapper {
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "loteId", target = "loteId")
-    @Mapping(source = "cosechaId", target = "cosechaId")
+    @Mapping(source = "loteCafe.id", target = "loteId")
+    @Mapping(source = "cosecha.id", target = "cosechaId")
     CosechaLoteDTO cosechaLoteToDTO(CosechaLote cosechaLote);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "loteId", target = "loteId")
-    @Mapping(source = "cosechaId", target = "cosechaId")
+    @Mapping(source = "loteId", target = "loteCafe.id")
+    @Mapping(source = "cosechaId", target = "cosecha.id")
     CosechaLote dtoToCosechaLote(CosechaLoteDTO cosechaLoteDTO);
 }

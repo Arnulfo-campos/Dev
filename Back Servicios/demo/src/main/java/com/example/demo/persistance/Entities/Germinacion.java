@@ -3,7 +3,6 @@ package com.example.demo.persistance.Entities;
 import jakarta.persistence.*;
 import java.util.Date;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 @Entity
 @Table(name = "Germinacion")
@@ -17,11 +16,11 @@ public class Germinacion {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Tipo_Germinador")
-    private String tipoGerminador;
+    private tipoGerminador tipoGerminador;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Sombra")
-    private String sombra;
+    private TipoSombra sombra;
     
     @Column(name = "Area")
     private Integer area;
@@ -95,22 +94,6 @@ public class Germinacion {
 
     public void setProfundidad(Double profundidad) {
         this.profundidad = profundidad;
-    }
-
-    public String getTipoGerminador() {
-        return tipoGerminador;
-    }
-
-    public void setTipoGerminador(String tipoGerminador) {
-        this.tipoGerminador = tipoGerminador;
-    }
-
-    public String getSombra() {
-        return sombra;
-    }
-
-    public void setSombra(String sombra) {
-        this.sombra = sombra;
     }
 
     public Integer getArea() {
@@ -263,6 +246,22 @@ public class Germinacion {
 
     public void setCultivador(Cultivador cultivador) {
         this.cultivador = cultivador;
+    }
+
+    public tipoGerminador getTipoGerminador() {
+        return tipoGerminador;
+    }
+
+    public void setTipoGerminador(tipoGerminador tipoGerminador) {
+        this.tipoGerminador = tipoGerminador;
+    }
+
+    public TipoSombra getSombra() {
+        return sombra;
+    }
+
+    public void setSombra(TipoSombra sombra) {
+        this.sombra = sombra;
     }
     
     // Getters y setters

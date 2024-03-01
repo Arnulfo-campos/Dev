@@ -18,7 +18,7 @@ public class Secado {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Tipo_Secado")
-    private String tipoSecado;
+    private tipoSecado tipoSecado;
     
     @Column(name = "Peso_Antes_Secado")
     private Double pesoAntesSecado;
@@ -60,13 +60,6 @@ public class Secado {
         this.fechaFinal = fechaFinal;
     }
 
-    public String getTipoSecado() {
-        return tipoSecado;
-    }
-
-    public void setTipoSecado(String tipoSecado) {
-        this.tipoSecado = tipoSecado;
-    }
 
     public Double getPesoAntesSecado() {
         return pesoAntesSecado;
@@ -114,6 +107,14 @@ public class Secado {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public tipoSecado getTipoSecado() {
+        return tipoSecado;
+    }
+
+    public void setTipoSecado(tipoSecado tipoSecado) {
+        this.tipoSecado = tipoSecado;
     }
     
     // Getters y setters

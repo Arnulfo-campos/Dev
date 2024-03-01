@@ -1,12 +1,13 @@
 package com.example.demo.DTO;
 
 import java.util.Date;
+import com.example.demo.persistance.Entities.*;
 
 public class SecadoDTO {
     private Long id;
     private Date fechaInicio;
     private Date fechaFinal;
-    private String tipoSecado;
+    private tipoSecado tipoSecado;
     private Double pesoAntesSecado;
     private Double pesoFinalSecado;
     private byte[] imagen;
@@ -40,13 +41,6 @@ public class SecadoDTO {
         this.fechaFinal = fechaFinal;
     }
 
-    public String getTipoSecado() {
-        return tipoSecado;
-    }
-
-    public void setTipoSecado(String tipoSecado) {
-        this.tipoSecado = tipoSecado;
-    }
 
     public Double getPesoAntesSecado() {
         return pesoAntesSecado;
@@ -94,5 +88,13 @@ public class SecadoDTO {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public tipoSecado getTipoSecado() {
+        return tipoSecado;
+    }
+
+    public void setTipoSecado(tipoSecado tipoSecado) {
+        this.tipoSecado = tipoSecado;
     }
 }

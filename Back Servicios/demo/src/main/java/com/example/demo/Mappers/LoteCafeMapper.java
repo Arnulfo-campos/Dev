@@ -14,7 +14,7 @@ public interface LoteCafeMapper {
     @Mapping(source = "crecimiento.id", target = "crecimientoId")
     @Mapping(source = "envasado.id", target = "envasadoId")
     @Mapping(source = "fechaRegistro", target = "fechaRegistro")
-    @Mapping(source = "fechaLastUPD", target = "fechaLastUPD")
+    @Mapping(source = "fechaLastUpdate", target = "fechaLastUPD")
     LoteCafeDTO loteCafeToDTO(LoteCafe loteCafe);
 
     @Mapping(target = "id", ignore = true)
@@ -23,6 +23,6 @@ public interface LoteCafeMapper {
     @Mapping(source = "crecimientoId", target = "crecimiento.id")
     @Mapping(source = "envasadoId", target = "envasado.id")
     @Mapping(source = "fechaRegistro", target = "fechaRegistro")
-    @Mapping(source = "fechaLastUPD", target = "fechaLastUPD")
+    @Mapping(source = "fechaLastUPD", target = "fechaLastUpdate")
     LoteCafe dtoToLoteCafe(LoteCafeDTO loteCafeDTO);
 }

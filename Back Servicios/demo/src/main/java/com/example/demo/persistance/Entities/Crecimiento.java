@@ -3,6 +3,8 @@ package com.example.demo.persistance.Entities;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import com.google.protobuf.Enum;
+
 @Entity
 @Table(name = "Crecimiento")
 public class Crecimiento {
@@ -17,14 +19,14 @@ public class Crecimiento {
     private Integer areaLote;
     
     @Enumerated(EnumType.STRING)
-    private String sombra;
+    private TipoSombra sombra;
     
     @Column(name = "Distancia_Siembra")
     private Integer distanciaSiembra;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Tipo_Trazo")
-    private String tipoTrazo;
+    private TipoTrazo tipoTrazo;
     
     @Column(name = "Profundidad_Ahoyado")
     private Integer profundidadAhoyado;
@@ -99,13 +101,6 @@ public class Crecimiento {
         this.areaLote = areaLote;
     }
 
-    public String getSombra() {
-        return sombra;
-    }
-
-    public void setSombra(String sombra) {
-        this.sombra = sombra;
-    }
 
     public Integer getDistanciaSiembra() {
         return distanciaSiembra;
@@ -113,14 +108,6 @@ public class Crecimiento {
 
     public void setDistanciaSiembra(Integer distanciaSiembra) {
         this.distanciaSiembra = distanciaSiembra;
-    }
-
-    public String getTipoTrazo() {
-        return tipoTrazo;
-    }
-
-    public void setTipoTrazo(String tipoTrazo) {
-        this.tipoTrazo = tipoTrazo;
     }
 
     public Integer getProfundidadAhoyado() {
@@ -250,6 +237,24 @@ public class Crecimiento {
     public void setCultivador(Cultivador cultivador) {
         this.cultivador = cultivador;
     }
+
+    public TipoSombra getSombra() {
+        return sombra;
+    }
+
+    public void setSombra(TipoSombra sombra) {
+        this.sombra = sombra;
+    }
+
+    public TipoTrazo getTipoTrazo() {
+        return tipoTrazo;
+    }
+
+    public void setTipoTrazo(TipoTrazo tipoTrazo) {
+        this.tipoTrazo = tipoTrazo;
+    }
+
+   
     
     // Getters y setters
 }

@@ -29,7 +29,7 @@ public interface CrecimientoMapper {
     @Mapping(source = "humedadMedia", target = "humedadMedia")
     @Mapping(source = "observaciones", target = "observaciones")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "cultivadorId", target = "cultivadorId")
+    @Mapping(source = "cultivador.id", target = "cultivadorId")
     CrecimientoDTO crecimientoToDTO(Crecimiento crecimiento);
 
     @Mapping(target = "id", ignore = true)
@@ -53,6 +53,6 @@ public interface CrecimientoMapper {
     @Mapping(source = "humedadMedia", target = "humedadMedia")
     @Mapping(source = "observaciones", target = "observaciones")
     @Mapping(source = "imagen", target = "imagen")
-    @Mapping(source = "cultivadorId", target = "cultivadorId")
+    @Mapping(source = "cultivadorId", target = "cultivador.id")
     Crecimiento dtoToCrecimiento(CrecimientoDTO crecimientoDTO);
 }

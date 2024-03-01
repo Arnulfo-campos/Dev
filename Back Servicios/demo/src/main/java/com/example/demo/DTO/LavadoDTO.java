@@ -9,6 +9,7 @@ public class LavadoDTO {
     private Double pesoCafeFlotante;
     private byte[] imagen;
     private String observacion;
+    private long cosechaId;
 
     // Getters y setters
 
@@ -58,5 +59,13 @@ public class LavadoDTO {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public long getCosechaId() {
+        return cosechaId;
+    }
+
+    public void setCosechaId(long cosechaId) {
+        this.cosechaId = cosechaId;
     }
 }

@@ -2,13 +2,17 @@ package com.example.demo.DTO;
 
 import java.util.Date;
 
+import com.example.demo.persistance.Entities.TipoSombra;
+import com.example.demo.persistance.Entities.TipoTrazo;
+import com.google.protobuf.Enum;
+
 public class CrecimientoDTO {
     private Long id;
     private Date fechaSembrado;
     private Integer areaLote;
-    private String sombra;
+    private TipoSombra sombra;
     private Integer distanciaSiembra;
-    private String tipoTrazo;
+    private TipoTrazo tipoTrazo;
     private Integer profundidadAhoyado;
     private Integer chapolasSembradas;
     private Integer chapolasFinales;
@@ -52,28 +56,9 @@ public class CrecimientoDTO {
         this.areaLote = areaLote;
     }
 
-    public String getSombra() {
-        return sombra;
-    }
-
-    public void setSombra(String sombra) {
-        this.sombra = sombra;
-    }
-
-    public Integer getDistanciaSiembra() {
-        return distanciaSiembra;
-    }
 
     public void setDistanciaSiembra(Integer distanciaSiembra) {
         this.distanciaSiembra = distanciaSiembra;
-    }
-
-    public String getTipoTrazo() {
-        return tipoTrazo;
-    }
-
-    public void setTipoTrazo(String tipoTrazo) {
-        this.tipoTrazo = tipoTrazo;
     }
 
     public Integer getProfundidadAhoyado() {
@@ -202,5 +187,25 @@ public class CrecimientoDTO {
 
     public void setCultivadorId(Long cultivadorId) {
         this.cultivadorId = cultivadorId;
+    }
+
+    public TipoSombra getSombra() {
+        return sombra;
+    }
+
+    public void setSombra(TipoSombra sombra) {
+        this.sombra = sombra;
+    }
+
+    public Integer getDistanciaSiembra() {
+        return distanciaSiembra;
+    }
+
+    public TipoTrazo getTipoTrazo() {
+        return tipoTrazo;
+    }
+
+    public void setTipoTrazo(TipoTrazo tipoTrazo) {
+        this.tipoTrazo = tipoTrazo;
     }
 }

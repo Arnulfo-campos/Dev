@@ -24,7 +24,7 @@ public class Cosecha {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Tipo_Recoleccion")
-    private String tipoRecoleccion;
+    private TipoReco tipoRecoleccion;
     
     @Column(name = "Observaciones", columnDefinition = "TEXT")
     private String observaciones;
@@ -80,14 +80,6 @@ public class Cosecha {
         this.pesoTotalCafeDespulpado = pesoTotalCafeDespulpado;
     }
 
-    public String getTipoRecoleccion() {
-        return tipoRecoleccion;
-    }
-
-    public void setTipoRecoleccion(String tipoRecoleccion) {
-        this.tipoRecoleccion = tipoRecoleccion;
-    }
-
     public String getObservaciones() {
         return observaciones;
     }
@@ -118,6 +110,14 @@ public class Cosecha {
 
     public void setTostado(Tostado tostado) {
         this.tostado = tostado;
+    }
+
+    public TipoReco getTipoRecoleccion() {
+        return tipoRecoleccion;
+    }
+
+    public void setTipoRecoleccion(TipoReco tipoRecoleccion) {
+        this.tipoRecoleccion = tipoRecoleccion;
     }
     
     // Getters y setters

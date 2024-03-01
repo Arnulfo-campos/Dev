@@ -11,7 +11,7 @@ public class ControlHierbas {
     private Long id;
     
     @Enumerated(EnumType.STRING)
-    private String tipo;
+    private TipoControl tipo;
     
     @Column(name = "Cantidad_Aplicada")
     private Double cantidadAplicada;
@@ -38,14 +38,6 @@ public class ControlHierbas {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public Double getCantidadAplicada() {
@@ -94,6 +86,14 @@ public class ControlHierbas {
 
     public void setCrecimiento(Crecimiento crecimiento) {
         this.crecimiento = crecimiento;
+    }
+
+    public TipoControl getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoControl tipo) {
+        this.tipo = tipo;
     }
     
     // Getters y setters

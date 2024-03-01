@@ -2,15 +2,20 @@ package com.example.demo.DTO;
 
 import java.util.Date;
 
+import com.example.demo.persistance.Entities.TipoReco;
+
 public class CosechaDTO {
     private Long id;
     private Date fechaInicio;
     private Date fechaFinal;
     private Double pesoTotalCafe;
     private Double pesoTotalCafeDespulpado;
-    private String tipoRecoleccion;
+    private TipoReco tipoRecoleccion;
     private String observaciones;
     private byte[] imagen;
+    private long secadoId;
+    private long tostadoId;
+    
 
     // Getters y setters
 
@@ -54,13 +59,6 @@ public class CosechaDTO {
         this.pesoTotalCafeDespulpado = pesoTotalCafeDespulpado;
     }
 
-    public String getTipoRecoleccion() {
-        return tipoRecoleccion;
-    }
-
-    public void setTipoRecoleccion(String tipoRecoleccion) {
-        this.tipoRecoleccion = tipoRecoleccion;
-    }
 
     public String getObservaciones() {
         return observaciones;
@@ -76,5 +74,29 @@ public class CosechaDTO {
 
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
+    }
+
+    public long getTostadoId() {
+        return tostadoId;
+    }
+
+    public void setTostadoId(long tostadoId) {
+        this.tostadoId = tostadoId;
+    }
+
+    public long getSecadoId() {
+        return secadoId;
+    }
+
+    public void setSecadoId(long secadoId) {
+        this.secadoId = secadoId;
+    }
+
+    public TipoReco getTipoRecoleccion() {
+        return tipoRecoleccion;
+    }
+
+    public void setTipoRecoleccion(TipoReco tipoRecoleccion) {
+        this.tipoRecoleccion = tipoRecoleccion;
     }
 }

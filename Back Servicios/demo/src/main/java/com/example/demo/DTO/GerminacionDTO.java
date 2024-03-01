@@ -2,11 +2,13 @@ package com.example.demo.DTO;
 
 import java.util.Date;
 
+import com.example.demo.persistance.Entities.TipoSombra;
+
 public class GerminacionDTO {
     private Long id;
     private Double profundidad;
     private String tipoGerminador;
-    private String sombra;
+    private TipoSombra sombra;
     private Integer area;
     private Boolean arena;
     private Double profundidadArena;
@@ -25,6 +27,9 @@ public class GerminacionDTO {
     private Integer altitud;
     private Double temperaturaMedia;
     private Double humedadMedia;
+    private long cultivadorId;
+
+    
     public Long getId() {
         return id;
     }
@@ -43,12 +48,7 @@ public class GerminacionDTO {
     public void setTipoGerminador(String tipoGerminador) {
         this.tipoGerminador = tipoGerminador;
     }
-    public String getSombra() {
-        return sombra;
-    }
-    public void setSombra(String sombra) {
-        this.sombra = sombra;
-    }
+   
     public Integer getArea() {
         return area;
     }
@@ -156,6 +156,18 @@ public class GerminacionDTO {
     }
     public void setHumedadMedia(Double humedadMedia) {
         this.humedadMedia = humedadMedia;
+    }
+    public long getCultivadorId() {
+        return cultivadorId;
+    }
+    public void setCultivadorId(long cultivadorId) {
+        this.cultivadorId = cultivadorId;
+    }
+    public TipoSombra getSombra() {
+        return sombra;
+    }
+    public void setSombra(TipoSombra sombra) {
+        this.sombra = sombra;
     }
 
     // Getters y setters
