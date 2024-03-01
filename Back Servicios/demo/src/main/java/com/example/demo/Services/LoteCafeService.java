@@ -1,8 +1,12 @@
 package com.example.demo.Services;
 
 import com.example.demo.DTO.LoteCafeDTO;
+import com.example.demo.Mappers.LavadoMapper;
 import com.example.demo.Mappers.LoteCafeMapper;
+import com.example.demo.persistance.Entities.Lavado;
 import com.example.demo.persistance.Entities.LoteCafe;
+import com.example.demo.persistance.Repository.EnvasadoRepository;
+import com.example.demo.persistance.Repository.LavadoRepository;
 import com.example.demo.persistance.Repository.LoteCafeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,7 @@ public class LoteCafeService {
     private final LoteCafeRepository loteCafeRepository;
     private final LoteCafeMapper loteCafeMapper;
 
+
     public LoteCafeService(LoteCafeRepository loteCafeRepository, LoteCafeMapper loteCafeMapper) {
         this.loteCafeRepository = loteCafeRepository;
         this.loteCafeMapper = loteCafeMapper;
@@ -25,9 +30,23 @@ public class LoteCafeService {
     @Transactional
     public LoteCafeDTO crearLoteCafe(LoteCafeDTO loteCafeDTO) {
         LoteCafe loteCafe = loteCafeMapper.dtoToLoteCafe(loteCafeDTO);
+        validarEstado(loteCafe);
         LoteCafe loteCafeGuardado = loteCafeRepository.save(loteCafe);
         return loteCafeMapper.loteCafeToDTO(loteCafeGuardado);
     }
+    public LoteCafe validarEstado(LoteCafe loteCafe){
+        if (loteCafe.getEnvasado().getId()==null) {
+            loteCafe.setEnvasado(null);   
+        }
+        if (loteCafe.getCrecimiento().getId()==null) {
+            loteCafe.setCrecimiento(null);   
+        }
+        if (loteCafe.getGerminacion().getId()==null) {
+            loteCafe.setGerminacion(null);  
+        }
+        return loteCafe;
+    }
+    
 
     public LoteCafeDTO obtenerLoteCafePorId(Long id) {
         Optional<LoteCafe> loteCafeOptional = loteCafeRepository.findById(id);
