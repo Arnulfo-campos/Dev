@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/semillas-cafe")
-@CrossOrigin
+@CrossOrigin("*")
 public class SemillaCafeController {
     @Autowired
     private SemillaCafeService semillaService;

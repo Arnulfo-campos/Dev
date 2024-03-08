@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/lotes-cafe")
+@CrossOrigin("*")
 public class LoteCafeController {
     @Autowired
     private LoteCafeService loteCafeService;

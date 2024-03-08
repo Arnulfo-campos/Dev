@@ -10,6 +10,7 @@ public class LoteCafeDTO {
     private Long envasadoId;
     private Date fechaRegistro;
     private Date fechaLastUPD;
+    private Integer areaGerminacion;
 
     // Getters y setters
 
@@ -67,6 +68,14 @@ public class LoteCafeDTO {
 
     public void setFechaLastUPD(Date fechaLastUPD) {
         this.fechaLastUPD = fechaLastUPD;
+    }
+
+    public Integer getAreaGerminacion() {
+        return areaGerminacion;
+    }
+
+    public void setAreaGerminacion(Integer areaGerminacion) {
+        this.areaGerminacion = areaGerminacion;
     }
 
 }

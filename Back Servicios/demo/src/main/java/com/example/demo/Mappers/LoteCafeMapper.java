@@ -15,6 +15,8 @@ public interface LoteCafeMapper {
     @Mapping(source = "envasado.id", target = "envasadoId")
     @Mapping(source = "fechaRegistro", target = "fechaRegistro")
     @Mapping(source = "fechaLastUpdate", target = "fechaLastUPD")
+    @Mapping(source = "germinacion.area",target = "areaGerminacion")
+
     LoteCafeDTO loteCafeToDTO(LoteCafe loteCafe);
 
     @Mapping(target = "id", ignore = true)

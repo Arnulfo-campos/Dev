@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cosechas")
-@CrossOrigin
+@CrossOrigin("*")
 public class CosechaController {
 
     @Autowired
