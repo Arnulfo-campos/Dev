@@ -1,16 +1,13 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.DTO.CultivadorDTO;
 import com.example.demo.DTO.FungicidaDTO;
 import com.example.demo.Services.FungicidaService;
-import com.example.demo.persistance.Entities.Fungicida;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/fungicidas")

@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.example.demo.persistance.Entities.TipoSombra;
 import com.example.demo.persistance.Entities.TipoTrazo;
-import com.google.protobuf.Enum;
 
 public class CrecimientoDTO {
     private Long id;

@@ -5,13 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.DTO.LoteCafeDTO;
-import com.example.demo.Mappers.LoteCafeMapper;
 import com.example.demo.Services.LoteCafeService;
-import com.example.demo.persistance.Entities.LoteCafe;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/lotes-cafe")

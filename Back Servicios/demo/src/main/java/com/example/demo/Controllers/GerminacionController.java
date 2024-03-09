@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.DTO.GerminacionDTO;
 import com.example.demo.Services.GerminacionService;
-import com.example.demo.persistance.Entities.Germinacion;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/germinaciones")

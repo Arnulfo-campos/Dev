@@ -25,17 +25,20 @@ public class AbonoCreService {
     @Transactional
     public AbonoCrecimientoDTO crearAbonoCrecimiento(AbonoCrecimientoDTO abonoCrecimientoDTO) {
         AbonoCrecimiento abonoCrecimiento = abonoCrecimientoMapper.dtoToAbonoCrecimiento(abonoCrecimientoDTO);
+        @SuppressWarnings("null")
         AbonoCrecimiento abonoCrecimientoGuardado = abonoCrecimientoRepository.save(abonoCrecimiento);
         return abonoCrecimientoMapper.abonoCrecimientoToDTO(abonoCrecimientoGuardado);
     }
 
     public AbonoCrecimientoDTO obtenerAbonoCrecimientoPorId(Long id) {
+        @SuppressWarnings("null")
         Optional<AbonoCrecimiento> abonoCrecimientoOptional = abonoCrecimientoRepository.findById(id);
         return abonoCrecimientoOptional.map(abonoCrecimientoMapper::abonoCrecimientoToDTO).orElse(null);
     }
 
     @Transactional
     public AbonoCrecimientoDTO actualizarAbonoCrecimiento(Long id, AbonoCrecimientoDTO abonoCrecimientoDTO) {
+        @SuppressWarnings("null")
         Optional<AbonoCrecimiento> abonoCrecimientoOptional = abonoCrecimientoRepository.findById(id);
         if (abonoCrecimientoOptional.isPresent()) {
             AbonoCrecimiento abonoCrecimiento = abonoCrecimientoOptional.get();
@@ -53,6 +56,7 @@ public class AbonoCreService {
         }
     }
 
+    @SuppressWarnings("null")
     public void eliminarAbonoCrecimiento(Long id) {
         abonoCrecimientoRepository.deleteById(id);
     }

@@ -3,6 +3,7 @@ package com.example.demo.persistance.Entities;
 import jakarta.persistence.*;
 import java.util.Date;
 
+
 @Entity
 @Table(name = "semilla_Cafe")
 public class SemillaCafe {
@@ -23,9 +24,11 @@ public class SemillaCafe {
     private Double cantidadKG;
     
     @Column(name = "Fecha_Registro")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     
     @Column(name = "Fecha_Adquisicion")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAdquisicion;
     
     @ManyToOne

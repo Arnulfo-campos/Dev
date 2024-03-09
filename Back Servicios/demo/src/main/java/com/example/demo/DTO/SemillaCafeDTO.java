@@ -2,13 +2,17 @@ package com.example.demo.DTO;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SemillaCafeDTO {
     private Long id;
     private String tipoVariedad;
     private String origen;
     private boolean certificada;
     private Double cantidadKG;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaRegistro;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaAdquisicion;
     private Long germinacionId;
     private Long loteCafeId;

@@ -1,19 +1,16 @@
 package com.example.demo.Controllers;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.DTO.CultivadorDTO;
 import com.example.demo.DTO.SemillaCafeDTO;
-import com.example.demo.Mappers.SemillaCafeMapper;
 import com.example.demo.Services.SemillaCafeService;
-import com.example.demo.persistance.Entities.SemillaCafe;
-
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
+
 
 @RestController
 @RequestMapping("/semillas-cafe")
@@ -25,7 +22,12 @@ public class SemillaCafeController {
     @PostMapping
     public ResponseEntity<? extends Object> crearSemilla(@RequestBody SemillaCafeDTO semillaCafeDTO) {
         try {
-            SemillaCafeDTO newSemilla = semillaService.crearSemillaCafe(semillaCafeDTO);
+            Date fechaRegistro = semillaCafeDTO.getFechaRegistro(); // Obtenemos directamente la fecha
+            semillaCafeDTO.setFechaRegistro(fechaRegistro);
+            byte[] imageBytes = Base64.getDecoder().decode(semillaCafeDTO.getImagen());
+            // Asignar los bytes de la imagen al DTO
+            semillaCafeDTO.setImagen(imageBytes);
+           SemillaCafeDTO newSemilla = semillaService.crearSemillaCafe(semillaCafeDTO);
             if (newSemilla != null) {
                 return new ResponseEntity<>(newSemilla, HttpStatus.CREATED);
             } else {
