@@ -5,3 +5,4 @@ public enum TipoSombra {
     Parcial,
     Sombra
 }
+

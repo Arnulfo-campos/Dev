@@ -9,7 +9,7 @@ public class CrecimientoDTO {
     private Long id;
     private Date fechaSembrado;
     private Integer areaLote;
-    private TipoSombra sombra;
+    private String sombra;
     private Integer distanciaSiembra;
     private TipoTrazo tipoTrazo;
     private Integer profundidadAhoyado;
@@ -187,15 +187,6 @@ public class CrecimientoDTO {
     public void setCultivadorId(Long cultivadorId) {
         this.cultivadorId = cultivadorId;
     }
-
-    public TipoSombra getSombra() {
-        return sombra;
-    }
-
-    public void setSombra(TipoSombra sombra) {
-        this.sombra = sombra;
-    }
-
     public Integer getDistanciaSiembra() {
         return distanciaSiembra;
     }
@@ -207,4 +198,14 @@ public class CrecimientoDTO {
     public void setTipoTrazo(TipoTrazo tipoTrazo) {
         this.tipoTrazo = tipoTrazo;
     }
+
+    public String getSombra() {
+        return sombra;
+    }
+
+    public void setSombra(String sombra) {
+        this.sombra = sombra;
+    }
+
+
 }

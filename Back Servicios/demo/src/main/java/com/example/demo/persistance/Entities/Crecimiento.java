@@ -11,62 +11,62 @@ public class Crecimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    //@Column(name = "Fecha_Sembrado")
+    @Column(name = "Fecha_Sembrado")
     private Date fechaSembrado;
     
-    //@Column(name = "Area_Lote")
+    @Column(name = "Area_Lote")
     private Integer areaLote;
     
-    //@Enumerated(EnumType.STRING)
-    private TipoSombra sombra;
+    @Column(name = "Sombra")
+    private String  sombra;
     
-    //@Column(name = "Distancia_Siembra")
+    @Column(name = "Distancia_Siembra")
     private Integer distanciaSiembra;
     
     @Enumerated(EnumType.STRING)
-    //@Column(name = "Tipo_Trazo")
+    @Column(name = "Tipo_Trazo")
     private TipoTrazo tipoTrazo;
     
-    //@Column(name = "Profundidad_Ahoyado")
+    @Column(name = "Profundidad_Ahoyado")
     private Integer profundidadAhoyado;
     
-    //@Column(name = "Chapolas_Sembradas")
+    @Column(name = "Chapolas_Sembradas")
     private Integer chapolasSembradas;
     
-    //@Column(name = "Chapolas_Finales")
+    @Column(name = "Chapolas_Finales")
     private Integer chapolasFinales;
     
-    //@Column(name = "Fecha_Final")
+    @Column(name = "Fecha_Final")
     private Date fechaFinal;
     
-    //@Column(name = "Departamento", length = 255)
+    @Column(name = "Departamento", length = 255)
     private String departamento;
     
-    //@Column(name = "Ciudad", length = 255)
+    @Column(name = "Ciudad", length = 255)
     private String ciudad;
     
-    //@Column(name = "Direccion", length = 255)
+    @Column(name = "Direccion", length = 255)
     private String direccion;
     
-    //@Column(name = "Nombre_Finca", length = 255)
+    @Column(name = "Nombre_Finca", length = 255)
     private String nombreFinca;
     
-    //@Column(name = "Ubicacion_Latitud")
+    @Column(name = "Ubicacion_Latitud")
     private Double ubicacionLatitud;
     
-    //@Column(name = "Ubicacion_Longitud")
+    @Column(name = "Ubicacion_Longitud")
     private Double ubicacionLongitud;
     
-    //@Column(name = "Altitud")
+    @Column(name = "Altitud")
     private Integer altitud;
     
-    //@Column(name = "Temperatura_Media")
+    @Column(name = "Temperatura_Media")
     private Double temperaturaMedia;
     
-    //@Column(name = "Humedad_Media")
+    @Column(name = "Humedad_Media")
     private Double humedadMedia;
     
-    //@Column(name = "Observaciones", columnDefinition = "TEXT")
+    @Column(name = "Observaciones", columnDefinition = "TEXT")
     private String observaciones;
     
     @Lob
@@ -236,15 +236,6 @@ public class Crecimiento {
     public void setCultivador(Cultivador cultivador) {
         this.cultivador = cultivador;
     }
-
-    public TipoSombra getSombra() {
-        return sombra;
-    }
-
-    public void setSombra(TipoSombra sombra) {
-        this.sombra = sombra;
-    }
-
     public TipoTrazo getTipoTrazo() {
         return tipoTrazo;
     }
@@ -253,6 +244,15 @@ public class Crecimiento {
         this.tipoTrazo = tipoTrazo;
     }
 
+    public String getSombra() {
+        return sombra;
+    }
+
+    public void setSombra(String sombra) {
+        this.sombra = sombra;
+    }
+
+ 
    
     
     // Getters y setters

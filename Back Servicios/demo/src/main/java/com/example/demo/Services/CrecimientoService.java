@@ -42,8 +42,6 @@ public class CrecimientoService {
             // Actualizar los atributos según sea necesario
             crecimiento.setFechaSembrado(crecimientoDTO.getFechaSembrado());
             crecimiento.setAreaLote(crecimientoDTO.getAreaLote());
-            crecimiento.setSombra(crecimientoDTO.getSombra());
-            crecimiento.setDistanciaSiembra(crecimientoDTO.getDistanciaSiembra());
             crecimiento.setTipoTrazo(crecimientoDTO.getTipoTrazo());
             crecimiento.setProfundidadAhoyado(crecimientoDTO.getProfundidadAhoyado());
             crecimiento.setChapolasSembradas(crecimientoDTO.getChapolasSembradas());
