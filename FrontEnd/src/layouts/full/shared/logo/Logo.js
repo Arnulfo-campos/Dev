@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ReactComponent as LogoDark } from 'src/assets/images/logos/dark-logo.svg';
+import LogoImage from 'src/assets/images/logos/logo.jpg'; // Importa la imagen JPG
 import { styled } from '@mui/material';
 
 const LinkStyled = styled(Link)(() => ({
@@ -12,7 +12,7 @@ const LinkStyled = styled(Link)(() => ({
 const Logo = () => {
   return (
     <LinkStyled to="/">
-      <LogoDark height={70} />
+      <img src={LogoImage} alt="Logo" style={{ height: '100%', width: '100%' }} /> {/* Utiliza la imagen JPG */}
     </LinkStyled>
   )
 };

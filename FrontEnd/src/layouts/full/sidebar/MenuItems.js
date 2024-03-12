@@ -22,16 +22,60 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Registrar Tostado',
-    icon: IconTypography,
-    href: '/ui/registrotostado',
+    title: 'Registrar Abono',
+    icon: IconCopy,
+    href: '/ui/registroabonosembrado',
   },
+  {
+    id: uniqueId(),
+    title: 'Registrar Control Hierbas',
+    icon: IconCopy,
+    href: '/ui/registrocontrolhierbas',
+  },
+  {
+    id: uniqueId(),
+    title: 'Registrar Cosecha',
+    icon: IconCopy,
+    href: '/ui/registrocosecha',
+  },
+  {
+    id: uniqueId(),
+    title: 'Registrar Cultivador',
+    icon: IconCopy,
+    href: '/ui/registrocultivador',
+  },
+  {
+    id: uniqueId(),
+    title: 'Registrar Fungicida',
+    icon: IconCopy,
+    href: '/ui/registrofungicida',
+  },
+  {
+    id: uniqueId(),
+    title: 'Registrar Lavado',
+    icon: IconCopy,
+    href: '/ui/registrolavado',
+  },
+  {
+    id: uniqueId(),
+    title: 'Registrar Secado',
+    icon: IconCopy,
+    href: '/ui/registrosecado',
+  },
+
   {
     id: uniqueId(),
     title: 'Registrar Semilla',
     icon: IconCopy,
     href: '/ui/registrosemilla',
   },
+  {
+    id: uniqueId(),
+    title: 'Registrar Tostado',
+    icon: IconTypography,
+    href: '/ui/registrotostado',
+  },
+ 
   {
     id: uniqueId(),
     title: 'Tables',
