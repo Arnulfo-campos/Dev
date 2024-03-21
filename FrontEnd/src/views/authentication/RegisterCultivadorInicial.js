@@ -68,5 +68,4 @@ const RegisterCultivadorInicial = () => (
     </Box>
   </PageContainer>
 );
-
 export default RegisterCultivadorInicial;

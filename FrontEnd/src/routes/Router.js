@@ -8,6 +8,7 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 /* ****Pages***** */
 
 /* ****Pages***** */
+const Minter = Loadable(lazy(() => import('../views/dashboard/Minter')))
 const Dashboard = Loadable(lazy(() => import('../views/dashboard/Dashboard')))
 const SamplePage = Loadable(lazy(() => import('../views/sample-page/SamplePage')))
 const Icons = Loadable(lazy(() => import('../views/icons/Icons')))
@@ -38,6 +39,7 @@ const Router = [
     element: <FullLayout />,
     children: [
       { path: '/', element: <Navigate to="/dashboard" /> },
+      { path: '/minter', exact: true, element: <Minter /> },
       { path: '/dashboard', exact: true, element: <Dashboard /> },
       { path: '/sample-page', exact: true, element: <SamplePage /> },
       { path: '/icons', exact: true, element: <Icons /> },
