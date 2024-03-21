@@ -86,3 +86,4 @@ const AuthRegister = ({ title, subtitle, subtext }) => {
 };
 
 export default AuthRegister;
+

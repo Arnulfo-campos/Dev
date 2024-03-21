@@ -1,10 +1,11 @@
 import React, { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom'; // Importa useParams desde react-router-dom
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
+/* ****Pages***** */
 
 /* ****Pages***** */
 const Minter = Loadable(lazy(() => import('../views/dashboard/Minter')))
@@ -27,6 +28,7 @@ const RegistroSemilla = Loadable(lazy(() => import('../views/utilities/RegistroS
 const RegistroTostado = Loadable(lazy(() => import('../views/utilities/RegistroTostado')))
 const Error = Loadable(lazy(() => import('../views/authentication/Error')));
 const Register = Loadable(lazy(() => import('../views/authentication/Register')));
+const RegisterCultivadorInicial = Loadable(lazy(() => import('../views/authentication/RegisterCultivadorInicial')));
 const Login = Loadable(lazy(() => import('../views/authentication/Login')));
 const Tables = Loadable(lazy(() => import('../views/Tables/Tables'))); // Agregar importación para Tables
 
@@ -56,6 +58,7 @@ const Router = [
       { path: '/ui/registroSecado', exact: true, element: <RegistroSecado /> },
       { path: '/ui/registroTostado', exact: true, element: <RegistroTostado /> },
       { path: '/ui/tables', exact: true, element: <Tables /> }, // Agregar ruta para Tables
+
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
@@ -65,9 +68,12 @@ const Router = [
     children: [
       { path: '404', element: <Error /> },
       { path: '/auth/register', element: <Register /> },
+      { path: '/auth/registerCultivadorInicial', exact: true, element: <RegisterCultivadorInicial /> }, // Agregar ruta para Tables
+      { path: "/auth/registerCultivadorInicial/:nameParam/:identification", element: <RegisterCultivadorInicial />},
       { path: '/auth/login', element: <Login /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
+    
   },
 ];
 
