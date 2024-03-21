@@ -82,6 +82,7 @@ public class Cultivador {
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
-    
+
     // Getters y setters
+
 }
