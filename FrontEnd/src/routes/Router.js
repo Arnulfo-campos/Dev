@@ -31,6 +31,7 @@ const Register = Loadable(lazy(() => import('../views/authentication/Register'))
 const RegisterCultivadorInicial = Loadable(lazy(() => import('../views/authentication/RegisterCultivadorInicial')));
 const Login = Loadable(lazy(() => import('../views/authentication/Login')));
 const Tables = Loadable(lazy(() => import('../views/Tables/Tables'))); // Agregar importación para Tables
+const ConsultaNFT = Loadable(lazy(() => import('../views/Tables/ConsultaNFT'))); // Agregar importación para Tables
 
 
 const Router = [
@@ -58,6 +59,7 @@ const Router = [
       { path: '/ui/registroSecado', exact: true, element: <RegistroSecado /> },
       { path: '/ui/registroTostado', exact: true, element: <RegistroTostado /> },
       { path: '/ui/tables', exact: true, element: <Tables /> }, // Agregar ruta para Tables
+      { path: '/ui/consultaNFT', exact: true, element: <ConsultaNFT /> }, // Agregar ruta para Tables
 
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
