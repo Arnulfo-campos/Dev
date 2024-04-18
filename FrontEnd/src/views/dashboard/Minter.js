@@ -7,6 +7,7 @@ import getRewardBalance from "../../utils/getRewardBalance";
 import getMintedTokens from "../../utils/getMintedTokens";
 import getAccountBalance from "../../utils/getAccountBalance";
 
+
 const Minter = () => {
     const [walletAddress, setWalletAddress] = useState("");
     const [status, setStatus] = useState("");
@@ -28,15 +29,15 @@ const Minter = () => {
     useEffect(() => {
         async function initialize() {
             const { address, status } = await getCurrentWalletConnected();
-            setWalletAddress(address);
+            setWalletAddress('0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba');
             setStatus(status);
 
             addWalletListener();
 
-            const balance = await getAccountBalance(address);
+            const balance = await getAccountBalance('0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba');
             setBalance(balance);
 
-            const mintedTokens = await getMintedTokens(address);
+            const mintedTokens = await getMintedTokens('0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba');
             setMintedTokens(mintedTokens);
         }
 

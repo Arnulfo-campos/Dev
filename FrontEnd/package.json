@@ -18,7 +18,9 @@
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.23.1",
     "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
     "chance": "^1.1.9",
+    "express": "^4.19.2",
     "ipfs-http-client": "^60.0.1",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
@@ -34,6 +36,7 @@
     "reactstrap": "^9.2.2",
     "stylis-plugin-rtl": "^2.0.2",
     "web-vitals": "^2.1.4",
+    "web3": "^4.7.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

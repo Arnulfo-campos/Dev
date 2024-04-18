@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.DTO.SemillaCafeDTO;
 import com.example.demo.Services.SemillaCafeService;
 import java.util.List;
-import java.util.Locale;
-import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 

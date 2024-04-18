@@ -1,26 +1,40 @@
 import React, { useState } from 'react';
-import { Typography, TextField, Button, InputLabel, Input, FormControl } from '@mui/material';
+import { Typography, TextField, Button, MenuItem, FormControl, InputLabel, Select, Checkbox, FormControlLabel } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 import axios from 'axios';
 const { Web3 } = require('web3');
 
 
-const RegisterFungicidaSembradoForm = () => {
+const RegistroCrecimiento = () => {
   const [formData, setFormData] = useState({
-    nombre: '',
-    cantidadAplicada: '',
-    fechaAplicacion: new Date(),
-    formulaAplicada: '',
-    sembradoId: 0,
+    fechaSembrado: new Date(),
+    areaLote: 0,
+    sombra: '',
+    distanciaSiembra: 0,
+    tipoTrazo: '',
+    profundidadAhoyado: 0,
+    chapolasSembradas: 0,
+    chapolasFinales: 0,
+    fechaFinal: new Date(),
+    departamento: '',
+    ciudad: '',
+    direccion: '',
+    nombreFinca: '',
+    ubicacionLatitud: 0,
+    ubicacionLongitud: 0,
+    altitud: 0,
+    temperaturaMedia: 0,
+    humedadMedia: 0,
+    observaciones: '',
     imagen: null
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, checked } = event.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: name === 'imagen' ? event.target.files[0] : checked ? true : value
     });
   };
 
@@ -31,14 +45,14 @@ const RegisterFungicidaSembradoForm = () => {
       const base64String = reader.result.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
       setFormData({
         ...formData,
-        imagen: base64String // Establecer la imagen convertida a Base64 en el estado
+        imagen: base64String
       });
     };
     reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Evitar que el formulario se envíe por defecto
+    event.preventDefault();
     const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
     const contractABI = [
       {
@@ -235,86 +249,220 @@ const RegisterFungicidaSembradoForm = () => {
     console.log('Error submitting form.');
   }
    
-    const fechaAplicacion = new Date(formData.fechaAplicacion);
-    const fechaFormateada = fechaAplicacion.toISOString(); // Formatear la fecha al formato "YYYY-MM-DDTHH:mm:ss.sssZ"
-
     const formDataToSend = new FormData();
-    formDataToSend.append('nombre', formData.nombre);
-    formDataToSend.append('cantidadAplicada', formData.cantidadAplicada);
-    formDataToSend.append('fechaAplicacion', fechaFormateada);
-    formDataToSend.append('formulaAplicada', formData.formulaAplicada);
-    formDataToSend.append('sembradoId', formData.sembradoId);
+    formDataToSend.append('fechaSembrado', formData.fechaSembrado.toISOString());
+    formDataToSend.append('areaLote', formData.areaLote);
+    formDataToSend.append('sombra', formData.sombra);
+    formDataToSend.append('distanciaSiembra', formData.distanciaSiembra);
+    formDataToSend.append('tipoTrazo', formData.tipoTrazo);
+    formDataToSend.append('profundidadAhoyado', formData.profundidadAhoyado);
+    formDataToSend.append('chapolasSembradas', formData.chapolasSembradas);
+    formDataToSend.append('chapolasFinales', formData.chapolasFinales);
+    formDataToSend.append('fechaFinal', formData.fechaFinal.toISOString());
+    formDataToSend.append('departamento', formData.departamento);
+    formDataToSend.append('ciudad', formData.ciudad);
+    formDataToSend.append('direccion', formData.direccion);
+    formDataToSend.append('nombreFinca', formData.nombreFinca);
+    formDataToSend.append('ubicacionLatitud', formData.ubicacionLatitud);
+    formDataToSend.append('ubicacionLongitud', formData.ubicacionLongitud);
+    formDataToSend.append('altitud', formData.altitud);
+    formDataToSend.append('temperaturaMedia', formData.temperaturaMedia);
+    formDataToSend.append('humedadMedia', formData.humedadMedia);
+    formDataToSend.append('observaciones', formData.observaciones);
     formDataToSend.append('imagen', formData.imagen || null);
 
-    // Enviar la solicitud POST al servidor
-    axios.post('http://localhost:8080/fungicida-sembrado', formDataToSend, {
+    axios.post('http://localhost:8080/crecimiento', formDataToSend, {
       headers: {
         'Content-Type': 'application/json'
       }
     }).then(response => {
       console.log(response.data);
-      // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
     }).catch(error => {
       console.error('Error al registrar:', error);
-      // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
     });
   };
 
   return (
-    <PageContainer title="Registro de Fungicida para Sembrado" description="Formulario de Registro de Fungicida para Sembrado">
-      <DashboardCard title="Registro de Fungicida para Sembrado">
-        <Typography>Completa el formulario para registrar la aplicación de fungicida a un sembrado:</Typography>
+    <PageContainer title="Registro de Crecimiento" description="Formulario de Registro de Crecimiento">
+      <DashboardCard title="Registro de Crecimiento">
+        <Typography>Completa el formulario para registrar el crecimiento:</Typography>
         
         <form onSubmit={handleSubmit}>
           <TextField
-            name="nombre"
-            label="Nombre del Fungicida"
-            value={formData.nombre}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="cantidadAplicada"
-            label="Cantidad Aplicada (Kg)"
-            type="number"
-            value={formData.cantidadAplicada}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="formulaAplicada"
-            label="Fórmula Aplicada"
-            value={formData.formulaAplicada}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="sembradoId"
-            label="ID del Sembrado"
-            type="number"
-            value={formData.sembradoId}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="fechaAplicacion"
-            label="Fecha de Aplicación"
+            name="fechaSembrado"
+            label="Fecha de Siembra"
             type="date"
-            value={formData.fechaAplicacion}
+            value={formData.fechaSembrado}
             onChange={handleChange}
             fullWidth
             margin="normal"
             InputLabelProps={{
               shrink: true,
             }}
+            ></TextField>
+          <TextField
+            name="areaLote"
+            label="Área del Lote (m²)"
+            type="number"
+            value={formData.areaLote}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="sombra"
+            label="Tipo de Sombra"
+            value={formData.sombra}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="distanciaSiembra"
+            label="Distancia de Siembra (cm)"
+            type="number"
+            value={formData.distanciaSiembra}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="tipoTrazo"
+            label="Tipo de Trazo"
+            value={formData.tipoTrazo}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="profundidadAhoyado"
+            label="Profundidad de Ahoyado (cm)"
+            type="number"
+            value={formData.profundidadAhoyado}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="chapolasSembradas"
+            label="Chapolas Sembradas"
+            type="number"
+            value={formData.chapolasSembradas}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="chapolasFinales"
+            label="Chapolas Finales"
+            type="number"
+            value={formData.chapolasFinales}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="fechaFinal"
+            label="Fecha Final"
+            type="date"
+            value={formData.fechaFinal}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            ></TextField>
+          <TextField
+            name="departamento"
+            label="Departamento"
+            value={formData.departamento}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="ciudad"
+            label="Ciudad"
+            value={formData.ciudad}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="direccion"
+            label="Dirección"
+            value={formData.direccion}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="nombreFinca"
+            label="Nombre de la Finca"
+            value={formData.nombreFinca}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="ubicacionLatitud"
+            label="Ubicación Latitud"
+            type="number"
+            value={formData.ubicacionLatitud}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="ubicacionLongitud"
+            label="Ubicación Longitud"
+            type="number"
+            value={formData.ubicacionLongitud}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="altitud"
+            label="Altitud"
+            type="number"
+            value={formData.altitud}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="temperaturaMedia"
+            label="Temperatura Media"
+            type="number"
+            value={formData.temperaturaMedia}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="humedadMedia"
+            label="Humedad Media"
+            type="number"
+            value={formData.humedadMedia}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="observaciones"
+            label="Observaciones"
+            multiline
+            rows={4}
+            value={formData.observaciones}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
           />
           <FormControl fullWidth margin="normal">
             <InputLabel htmlFor="imagen">Imagen</InputLabel>
-            <Input
+            <input
               id="imagen"
               name="imagen"
               type="file"
@@ -331,4 +479,4 @@ const RegisterFungicidaSembradoForm = () => {
   );
 };
 
-export default RegisterFungicidaSembradoForm;
+export default RegistroCrecimiento;
