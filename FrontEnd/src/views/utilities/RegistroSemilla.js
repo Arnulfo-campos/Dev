@@ -3,17 +3,19 @@ import { Typography, TextField, Button, InputLabel, Input, FormControl, MenuItem
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 import axios from 'axios';
+const { Web3 } = require('web3');
+
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     tipoVariedad: '',
     origen: '',
-    certificada: false,
-    cantidadKG: 0,
-    fechaRegistro: new Date(),
-    fechaAdquisicion: '',
-    germinacionId: 0,
-    loteCafeId: 0,
+    certificada: true,
+    cantidadKG: '',
+    fechaRegistro: '',
+    fechaAdquisicion:'',
+    germinacionId: '',
+    loteCafeId: '',
     imagen: null
   });
 
@@ -38,41 +40,209 @@ const RegisterForm = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Evitar que el formulario se envíe por defecto
+  const handleSubmit = async (event) => {
+    event.preventDefault(); 
+    console.log(formData.certificada.toString())
+    // Evitar que el formulario se envíe por defecto
+    // Connect to the Sepolia testnet
+  const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+  const contractABI = [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_tipoVariedad",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_origen",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_cantidad",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_idGerminacion",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_idLote",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_fechaAdquisicion",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_certificada",
+          "type": "string"
+        }
+      ],
+      "name": "setNames",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "cantidad",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "certificada",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "fechaAdquisicion",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "idGerminacion",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "idLote",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "origen",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tipoVariedad",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+  const contractAddress = '0xDBd02192Dce6672304AECA5d7Ad912AF06773e5D';
 
-    const fechaAdquisicion = new Date(formData.fechaAdquisicion);
-    const fechaRegistro = new Date(formData.fechaRegistro);
+// Create an instance of your contract
+const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-    const fechaFormateada = fechaAdquisicion.toISOString(); // Formatea la fecha al formato "YYYY-MM-DDTHH:mm:ss.sssZ"
-    const fechaFormateada2 = fechaRegistro.toISOString(); // Formatea la fecha al formato "YYYY-MM-DDTHH:mm:ss.sssZ"
+    const txData = contract.methods.setNames(formData.tipoVariedad, formData.origen, formData.cantidadKG, formData.germinacionId, formData.loteCafeId, formData.fechaAdquisicion, formData.certificada.toString()).encodeABI();
 
-    console.log(formData.imagen)
-    const formDataToSend = new FormData();
-    formDataToSend.append('tipoVariedad', formData.tipoVariedad);
-    formDataToSend.append('origen', formData.origen);
-    formDataToSend.append('certificada', formData.certificada);
-    formDataToSend.append('cantidadKG', formData.cantidadKG);
-    formDataToSend.append('fechaRegistro', fechaFormateada2);
-    formDataToSend.append('fechaAdquisicion', fechaFormateada);
-    formDataToSend.append('germinacionId', formData.germinacionId);
-    formDataToSend.append('loteCafeId', formData.loteCafeId);
-    formDataToSend.append('imagen', formData.imagen || null);
+    // Get the current gas price
+    const gasPrice = await web3.eth.getGasPrice();
 
-    // Enviar la solicitud POST al servidor
-    axios.post('http://localhost:8080/semillas-cafe',formDataToSend, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-        console.log(response.data);
-        // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
+    // Create the transaction
+ const tx = {
+    from: '0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba',
+    to: contractAddress,
+    gas: web3.utils.toHex(600000), // You may need to adjust this value
+    gasPrice: web3.utils.toHex(gasPrice), // Use the current gas price
+    data: txData
+};
+try {
+  // Sign the transaction
+  const signedTx = await web3.eth.accounts.signTransaction(tx, '291cc1845dc44faa2b2ab1b067827d9ad3dd61544b8df50691de00789f868825');
+
+  // Send the signed transaction
+  web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+      .on('receipt', (receipt) => {
+          console.log(receipt);
+
+          // Write the transaction hash to a text file
+          const formDataToSend = new FormData();
+          formDataToSend.append('idLote', "1");
+          formDataToSend.append('idCosecha', "1");
+          formDataToSend.append('idUsuario', "1019126544");
+          formDataToSend.append('idFormulario', "3");
+          formDataToSend.append('hash', receipt.transactionHash);
+
+          // Enviar la solicitud POST al servidor
+          axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
+          headers: {
+          'Content-Type': 'application/json'
+          }
+          }).then(response => {
+          console.log(response.data);
+         // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
+          }).catch(error => {
+          console.error('Error al registrar:', error);
+          // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
+          });
+
+          console.log(receipt.transactionHash, (err) => {
+              if (err) throw err;
+              console.log('The transaction hash was saved to transactionHash.txt!');
+          });
       })
-      .catch(error => {
-        console.error('Error al registrar:', error);
-        // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
-      });
-  };
+      .on('error', console.error);
+  
+  console.log('Form submitted!');
+} catch (err) {
+  console.error(err);
+  console.log('Error submitting form.');
+}
+ };
 
   return (
     <PageContainer title="Registro Semilla" description="Formulario de Registro de Semilla">

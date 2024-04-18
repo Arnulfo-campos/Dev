@@ -1,12 +1,12 @@
-const Web3 = require('web3');
+const { Web3 } = require('web3');
 const contractABI = require('../contract-abi.json'); // Replace with the actual path to your contract's ABI JSON file
 
 async function getRewardBalance(userAddress) {
     // Create a new web3 instance and connect to the blockchain
-    const web3 = new Web3('http://localhost:7545');
+    const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
 
     // Get the contract instance
-    let contractAddress = '0x99112058177C849a8D2Af396e9d829D92d909B47';
+    let contractAddress = '0xb5BE8E5Da5ffC42f432ebd959b479197e931830A';
     contractAddress= web3.utils.toChecksumAddress(contractAddress)
 
     const contract = new web3.eth.Contract(contractABI, contractAddress);

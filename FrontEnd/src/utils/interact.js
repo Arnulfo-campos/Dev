@@ -4,7 +4,7 @@ import getRewardBalance from "./getRewardBalance";
 import getAccountBalance from "./getAccountBalance";
 import uploadToIPFS from './ipfs.js';
 
-const Web3 = require('web3');
+const { Web3 } = require('web3');
 const web3 = new Web3(window.ethereum);
 
 const contractABI = require('../contract-abi.json')
