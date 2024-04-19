@@ -26,7 +26,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
                 const userData = await response.json();
                 if (userData.password === password) {
                     // Contraseña correcta, redirigir a la vista Dashboard
-                    window.location.href = '/dashboard';
+                    window.location.href = `/auth/ConsultaLotes/${username}`;
                 } else {
                     setError('Usuario o contraseña incorrectos');
                 }

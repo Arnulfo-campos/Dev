@@ -8,6 +8,9 @@ public class LoteUsuarioDTO {
     private Long idUsuario;
     private Long idFormulario;
     private String hash;
+    private String imagenIPFS;
+    private String NFT;
+
 
     // Getters y setters
 
@@ -57,5 +60,21 @@ public class LoteUsuarioDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImagenIPFS() {
+        return imagenIPFS;
+    }
+
+    public void setImagenIPFS(String imagenIPFS) {
+        this.imagenIPFS = imagenIPFS;
+    }
+
+    public String getNFT() {
+        return NFT;
+    }
+
+    public void setNFT(String nFT) {
+        NFT = nFT;
     }
 }

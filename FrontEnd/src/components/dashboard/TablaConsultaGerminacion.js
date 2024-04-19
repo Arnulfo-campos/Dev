@@ -4,6 +4,8 @@ import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../shared/DashboardCard';
 import axios from 'axios';
 const { Web3 } = require('web3');
+const idLote = localStorage.getItem('idLote');
+const idCosecha = localStorage.getItem('idCosecha');
 
 const Tables = () => {
   const [data, setData] = useState(null);
@@ -20,7 +22,7 @@ const Tables = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      axios.get('http://localhost:8080/loteusuarios/formulario/1/1/1')
+      axios.get(`http://localhost:8080/loteusuarios/formulario/${idLote}/${idCosecha}/1`)
         .then(response => {
           setData(response.data);
         })
@@ -36,7 +38,7 @@ const Tables = () => {
     const fetchData = async () => {
       if (!data) return;
 
-      const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+      const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
        // Your contract's ABI and address
        const contractABI = [
         {
@@ -375,7 +377,7 @@ const Tables = () => {
             "type": "function"
         }
     ];
-      const contractAddress = '0x32E7e46901a2a25a481F1c70925dCc6CA53bB495';
+      const contractAddress = '0x93aF9D2B201eB738eD5d2249Ffc41053A159A7d2';
       const contract = new web3.eth.Contract(contractABI, contractAddress);
 
       try {
@@ -405,6 +407,8 @@ const Tables = () => {
           };
           
           try {
+            console.log(element.hash)
+
             const transaction = await web3.eth.getTransaction(element.hash);
             const var1 = await web3.eth.getStorageAt(contractAddress, 0, transaction.blockNumber);
             const var2 = await web3.eth.getStorageAt(contractAddress, 1, transaction.blockNumber);
@@ -415,16 +419,6 @@ const Tables = () => {
             const var7 = await web3.eth.getStorageAt(contractAddress, 6, transaction.blockNumber);
             const var8 = await web3.eth.getStorageAt(contractAddress, 7, transaction.blockNumber);
             const var9 = await web3.eth.getStorageAt(contractAddress, 8, transaction.blockNumber);
-            const var10 = await web3.eth.getStorageAt(contractAddress, 9, transaction.blockNumber);
-            const var11 = await web3.eth.getStorageAt(contractAddress, 10, transaction.blockNumber);
-            const var12 = await web3.eth.getStorageAt(contractAddress, 11, transaction.blockNumber);
-            const var13 = await web3.eth.getStorageAt(contractAddress, 12, transaction.blockNumber);
-            const var14 = await web3.eth.getStorageAt(contractAddress, 13, transaction.blockNumber);
-            const var15 = await web3.eth.getStorageAt(contractAddress, 14, transaction.blockNumber);
-            const var16 = await web3.eth.getStorageAt(contractAddress, 15, transaction.blockNumber);
-            const var17 = await web3.eth.getStorageAt(contractAddress, 16, transaction.blockNumber);
-            const var18 = await web3.eth.getStorageAt(contractAddress, 17, transaction.blockNumber);
-            const var19 = await web3.eth.getStorageAt(contractAddress, 18, transaction.blockNumber);
 
             const receipt = await web3.eth.getTransactionReceipt('0xe76a4b4227d4c59d1ec7272c8f6e03bac3187cfaef0af66f0f5382024072d2b1');
             if (receipt.status) {
@@ -437,16 +431,6 @@ const Tables = () => {
               newFormData.cantidadChapolasObtenidas = hexToString(var7);
               newFormData.observaciones = hexToString(var8);
               newFormData.fechaFinalGerminacion = hexToString(var9);
-              newFormData.pesoArena = hexToString(var10);
-              newFormData.fechaRegistro = hexToString(var11);
-              newFormData.departamento = hexToString(var12);
-              newFormData.ciudad = hexToString(var13);
-              newFormData.direccion = hexToString(var14);
-              newFormData.nombreFinca = hexToString(var15);
-              newFormData.ubicacionLatitud = hexToString(var16);
-              newFormData.ubicacionLongitud = hexToString(var17);
-              newFormData.temperaturaMedia = hexToString(var18);
-              newFormData.humedadMedia = hexToString(var19);
 
             } else {
               console.log('Transaction failed');

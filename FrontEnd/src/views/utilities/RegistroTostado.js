@@ -10,14 +10,19 @@ const RegistroTostado = () => {
   const [formData, setFormData] = useState({
     fechaInicio: new Date(),
     fechaFinal: new Date(),
-    tipoSecado: '',
-    pesoAntesSecado: 0,
-    pesoFinalSecado: 0,
+    Temperatura_Inicial: '',
+    Temperatura_2: '',
+    HoraTemperatura_2: '',
     imagen: null,
-    humedad: 0,
-    factor: 0,
+    Temperatura_3: '',
+    HoraTemperatura_3: '',
+    Temperatura_Final:'',
+    Humedad_final: '',
+    Seleccion_Grano: '',
+    Malla:'',
+    Tonalidad_Agtron:'',
     observacion: ''
-  });
+      });
 
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
@@ -42,7 +47,7 @@ const RegistroTostado = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+    const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
   const contractABI = [
     {
       "inputs": [
@@ -261,106 +266,148 @@ try {
   };
 
   return (
-    <PageContainer title="Registro de Secado" description="Formulario de Registro de Secado">
-      <DashboardCard title="Registro de Secado">
-        <Typography>Completa el formulario para registrar el secado:</Typography>
+    <PageContainer title="Registro de Tostado" description="Formulario de Registro de Secado">
+      <DashboardCard title="Registro de Tostado">
+        <Typography>Completa el formulario para registrar el proceso de Tostion:</Typography>
         
         <form onSubmit={handleSubmit}>
-          <TextField
-            name="tipoSecado"
-            label="Tipo de Secado"
-            select
-            value={formData.tipoSecado}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          >
-            {['Natural', 'Honey', 'Lavado'].map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name="pesoAntesSecado"
-            label="Peso antes del secado (KG)"
-            type="number"
-            value={formData.pesoAntesSecado}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="pesoFinalSecado"
-            label="Peso final después del secado (KG)"
-            type="number"
-            value={formData.pesoFinalSecado}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="humedad"
-            label="Humedad (%)"
-            type="number"
-            value={formData.humedad}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="factor"
-            label="Factor"
-            type="number"
-            value={formData.factor}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            name="fechaInicio"
-            label="Fecha de Inicio"
-            type="date"
-            value={formData.fechaInicio}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            ></TextField>
-          <TextField
-            name="fechaFinal"
-            label="Fecha Finalizacion"
-            type="date"
-            value={formData.fechaFinal}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            ></TextField>
-          <TextField
-            name="observacion"
-            label="Observación"
-            multiline
-            rows={4}
-            value={formData.observacion}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
-          <FormControl fullWidth margin="normal">
-            <InputLabel htmlFor="imagen">Imagen</InputLabel>
-            <Input
-              id="imagen"
-              name="imagen"
-              type="file"
-              onChange={handleImageChange}
-            />
-          </FormControl>
-          
+        <TextField
+        name="fechaInicio"
+        label="Fecha de Inicio"
+        type="date"
+        value={formData.fechaInicio.toISOString().split('T')[0]}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        name="fechaFinal"
+        label="Fecha Finalización"
+        type="date"
+        value={formData.fechaFinal.toISOString().split('T')[0]}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        name="Temperatura_Inicial"
+        label="Temperatura Inicial"
+        type="number"
+        value={formData.Temperatura_Inicial}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="Temperatura_2"
+        label="Temperatura 2"
+        type="number"
+        value={formData.Temperatura_2}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="HoraTemperatura_2"
+        label="Hora Temperatura 2"
+        type="time"
+        value={formData.HoraTemperatura_2}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        name="Temperatura 3"
+        label="Temperatura 3"
+        type="time"
+        value={formData.Temperatura_3}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        name=" Hora Temperatura_3"
+        label="Hora Temperatura 3"
+        type="number"
+        value={formData.HoraTemperatura_3}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="Temperatura_Final"
+        label="Temperatura Final"
+        type="number"
+        value={formData.Temperatura_Final}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="Humedad_final"
+        label="Humedad Final"
+        type="number"
+        value={formData.Humedad_final}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="Seleccion_Grano"
+        label="Selección de Grano"
+        value={formData.Seleccion_Grano}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="Malla"
+        label="Malla"
+        value={formData.Malla}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="Tonalidad_Agtron"
+        label="Tonalidad Agtron"
+        value={formData.Tonalidad_Agtron}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        name="observacion"
+        label="Observación"
+        multiline
+        rows={4}
+        value={formData.observacion}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <FormControl fullWidth margin="normal">
+        <InputLabel htmlFor="imagen">Imagen</InputLabel>
+        <Input
+          id="imagen"
+          name="imagen"
+          type="file"
+          onChange={handleImageChange}
+        />
+        </FormControl>
+
           <Button type="submit" variant="contained" color="primary">
             Registrar
           </Button>

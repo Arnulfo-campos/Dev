@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import lighthouse from '@lighthouse-web3/sdk'
 import { Typography, TextField, Button, InputLabel, Input, FormControl } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
@@ -8,10 +9,10 @@ const { Web3 } = require('web3');
 
 const RegisterCosechaForm = () => {
   const [formData, setFormData] = useState({
-    fechaInicio: new Date(),
-    fechaFinal: new Date(),
-    pesoTotalCafe: 0,
-    pesoTotalCafeDespulpado: 0,
+    fechaInicio: '',
+    fechaFinal: '',
+    pesoTotalCafe: '',
+    pesoTotalCafeDespulpado: '',
     tipoRecoleccion: '',
     observaciones: '',
     imagen: null
@@ -25,13 +26,17 @@ const RegisterCosechaForm = () => {
     });
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2)
+  }
+  const uploadFile = (file) =>{
     setFormData({
       ...formData,
-      imagen: file // Establecer la imagen en el estado
+      imagen: file // Establecer la imagen convertida a Base64 en el estado
     });
-  };
+   }
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe por defecto
@@ -41,37 +46,27 @@ const RegisterCosechaForm = () => {
         "inputs": [
           {
             "internalType": "string",
-            "name": "_tipo",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_pesoAntes",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_pesoDespues",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_humedad",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_factor",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
             "name": "_fechaInicio",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "_fechaFinalizacion",
+            "name": "_fechaFinal",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_peso",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_pesoDespulpado",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_tipoRecoleccion",
             "type": "string"
           },
           {
@@ -87,20 +82,7 @@ const RegisterCosechaForm = () => {
       },
       {
         "inputs": [],
-        "name": "factor",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "fechaFinalizacion",
+        "name": "fechaFinal",
         "outputs": [
           {
             "internalType": "string",
@@ -126,19 +108,6 @@ const RegisterCosechaForm = () => {
       },
       {
         "inputs": [],
-        "name": "humedad",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
         "name": "observacion",
         "outputs": [
           {
@@ -152,7 +121,7 @@ const RegisterCosechaForm = () => {
       },
       {
         "inputs": [],
-        "name": "pesoAntes",
+        "name": "peso",
         "outputs": [
           {
             "internalType": "string",
@@ -165,7 +134,7 @@ const RegisterCosechaForm = () => {
       },
       {
         "inputs": [],
-        "name": "pesoDespues",
+        "name": "pesoDespulpado",
         "outputs": [
           {
             "internalType": "string",
@@ -178,7 +147,7 @@ const RegisterCosechaForm = () => {
       },
       {
         "inputs": [],
-        "name": "tipo",
+        "name": "tipoRecoleccion",
         "outputs": [
           {
             "internalType": "string",
@@ -190,12 +159,12 @@ const RegisterCosechaForm = () => {
         "type": "function"
       }
     ];
-    const contractAddress = '0xF5fDac58dC71498fca5Dc4bf7766Aa0bbbc65785';
+    const contractAddress = '0xfeB3028fAFfd3C474A85A68DB46718b9B9e841c2';
   
   // Create an instance of your contract
   const contract = new web3.eth.Contract(contractABI, contractAddress);
   
-      const txData = contract.methods.setNames(formData.tipoSecado, formData.pesoAntesSecado, formData.pesoFinalSecado, formData.humedad, formData.factor, formData.fechaInicio, formData.fechaFinal, formData.observacion).encodeABI();
+      const txData = contract.methods.setNames(formData.fechaInicio, formData.fechaFinal, formData.pesoTotalCafe, formData.pesoTotalCafeDespulpado, formData.tipoRecoleccion, formData.observaciones).encodeABI();
   
       // Get the current gas price
       const gasPrice = await web3.eth.getGasPrice();
@@ -211,12 +180,34 @@ const RegisterCosechaForm = () => {
   try {
     // Sign the transaction
     const signedTx = await web3.eth.accounts.signTransaction(tx, '291cc1845dc44faa2b2ab1b067827d9ad3dd61544b8df50691de00789f868825');
-  
+    const output = await lighthouse.upload(formData.imagen, "93222625.4a86e8b3f22f474aadbba0b5a4462f72", false, null, progressCallback)
+    const ipfs = 'https://gateway.lighthouse.storage/ipfs/' + output.data.Hash
+    
     // Send the signed transaction
     web3.eth.sendSignedTransaction(signedTx.rawTransaction)
         .on('receipt', (receipt) => {
             console.log(receipt);
-  
+   // Write the transaction hash to a text file
+   const formDataToSend = new FormData();
+   formDataToSend.append('idLote', "1");
+   formDataToSend.append('idCosecha', "1");
+   formDataToSend.append('idUsuario', "1019126544");
+   formDataToSend.append('idFormulario', "12");
+   formDataToSend.append('hash', receipt.transactionHash);
+   formDataToSend.append('imagenIPFS', ipfs);
+   // Enviar la solicitud POST al servidor
+   axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
+   headers: {
+   'Content-Type': 'application/json'
+   }
+   }).then(response => {
+   console.log(response.data);
+  // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
+   }).catch(error => {
+   console.error('Error al registrar:', error);
+   // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
+   });
+
             // Write the transaction hash to a text file
             console.log(receipt.transactionHash, (err) => {
                 if (err) throw err;
@@ -230,32 +221,7 @@ const RegisterCosechaForm = () => {
     console.error(err);
     console.log('Error submitting form.');
   }
-   
-    const fechaInicio = new Date(formData.fechaInicio);
-    const fechaFinal = new Date(formData.fechaFinal);
-
-    const formDataToSend = new FormData();
-    formDataToSend.append('fechaInicio', fechaInicio.toISOString());
-    formDataToSend.append('fechaFinal', fechaFinal.toISOString());
-    formDataToSend.append('pesoTotalCafe', formData.pesoTotalCafe);
-    formDataToSend.append('pesoTotalCafeDespulpado', formData.pesoTotalCafeDespulpado);
-    formDataToSend.append('tipoRecoleccion', formData.tipoRecoleccion);
-    formDataToSend.append('observaciones', formData.observaciones);
-    formDataToSend.append('imagen', formData.imagen);
-
-    // Enviar la solicitud POST al servidor
-    axios.post('http://localhost:8080/cosecha', formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      console.log(response.data);
-      // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
-    }).catch(error => {
-      console.error('Error al registrar:', error);
-      // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
-    });
-  };
+   };
 
   return (
     <PageContainer title="Registro de Cosecha" description="Formulario de Registro de Cosecha">
@@ -329,7 +295,7 @@ const RegisterCosechaForm = () => {
               id="imagen"
               name="imagen"
               type="file"
-              onChange={handleImageChange}
+              onChange={e=>uploadFile(e.target.files)}
             />
           </FormControl>
           

@@ -39,8 +39,8 @@ public class LoteUsuarioService {
                 .map(loteUsuarioMapper::loteUsuarioToDTO)
                 .collect(Collectors.toList());
     }
-    public List<LoteUsuarioDTO> obtenerLotesUsuarioPorUsuario(Long idUsuario) {
-        List<LoteUsuario> lotesUsuarioPorUsuario = loteUsuarioRepository.findByIdUsuario(idUsuario);
+    public List<LoteUsuarioDTO> obtenerLotesUsuarioPorUsuario(Long idUsuario, long idFormulario) {
+        List<LoteUsuario> lotesUsuarioPorUsuario = loteUsuarioRepository.findByIdUsuarioAndIdFormulario(idUsuario, idFormulario);
         return lotesUsuarioPorUsuario.stream()
                 .map(loteUsuarioMapper::loteUsuarioToDTO)
                 .collect(Collectors.toList());

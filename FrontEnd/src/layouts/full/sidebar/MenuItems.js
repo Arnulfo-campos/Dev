@@ -4,6 +4,8 @@ import {
 
 import { uniqueId } from 'lodash';
 
+const idLote = localStorage.getItem('idLote');
+const idCosecha = localStorage.getItem('idCosecha');
 const Menuitems = [
   {
     navlabel: true,
@@ -14,7 +16,7 @@ const Menuitems = [
     id: uniqueId(),
     title: 'Dashboard',
     icon: IconLayoutDashboard,
-    href: '/dashboard',
+    href: `/form/dashboardConsulta/${idLote}/${idCosecha}`,
   },
   {
     navlabel: true,
@@ -40,9 +42,9 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Registrar Cultivador',
+    title: 'Registrar Germinacion',
     icon: IconCopy,
-    href: '/ui/registrocultivador',
+    href: '/ui/registroGerminacion',
   },
   {
     id: uniqueId(),
@@ -78,9 +80,9 @@ const Menuitems = [
  
   {
     id: uniqueId(),
-    title: 'Tables',
+    title: 'Registrar Envasado',
     icon: IconCopy,
-    href: '/ui/tables',
+    href: '/ui/registroEnvasado',
   },
   {
     navlabel: true,

@@ -25,6 +25,13 @@ public class LoteUsuario {
     @Column(name = "Hash")
     private String hash;
 
+    @Column(name = "imagenIPFS")
+    private String imagenIPFS;
+
+    @Column(name = "NFT")
+    private String NFT;
+
+
     public Long getIdLote() {
         return idLote;
     }
@@ -72,4 +79,21 @@ public class LoteUsuario {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getImagenIPFS() {
+        return imagenIPFS;
+    }
+
+    public void setImagenIPFS(String imagenIPFS) {
+        this.imagenIPFS = imagenIPFS;
+    }
+
+    public String getNFT() {
+        return NFT;
+    }
+
+    public void setNFT(String nFT) {
+        NFT = nFT;
+    }
+    
 }

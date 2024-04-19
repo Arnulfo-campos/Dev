@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import lighthouse from '@lighthouse-web3/sdk'
 import { Typography, TextField, Button, InputLabel, Input, FormControl } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 import axios from 'axios';
 const { Web3 } = require('web3');
-
-
 const RegisterLavadoForm =  () => {
   const [formData, setFormData] = useState({
     fechaInicio: '',
@@ -13,7 +12,7 @@ const RegisterLavadoForm =  () => {
     pesoCafeFlotante: '',
     observacion: '',
     imagen: null,
-    cosechaId: ''
+    cosechaId: '0'
   });
 
   const handleChange = (event) => {
@@ -24,24 +23,22 @@ const RegisterLavadoForm =  () => {
     });
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-      setFormData({
-        ...formData,
-        imagen: base64String // Establecer la imagen convertida a Base64 en el estado
-      });
-    };
-    reader.readAsDataURL(file);
-  };
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2)
+  }
+  const uploadFile = (file) =>{
+    setFormData({
+      ...formData,
+      imagen: file // Establecer la imagen convertida a Base64 en el estado
+    });
+   }
 
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe por defecto
     // Connect to the Sepolia testnet
-  const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+  const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
   const contractABI = [
     {
       "inputs": [
@@ -163,7 +160,8 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 try {
   // Sign the transaction
   const signedTx = await web3.eth.accounts.signTransaction(tx, '291cc1845dc44faa2b2ab1b067827d9ad3dd61544b8df50691de00789f868825');
-
+  const output = await lighthouse.upload(formData.imagen, "93222625.4a86e8b3f22f474aadbba0b5a4462f72", false, null, progressCallback)
+  const ipfs = 'https://gateway.lighthouse.storage/ipfs/' + output.data.Hash
   // Send the signed transaction
   web3.eth.sendSignedTransaction(signedTx.rawTransaction)
       .on('receipt', (receipt) => {
@@ -176,6 +174,7 @@ try {
           formDataToSend.append('idUsuario', "1019126544");
           formDataToSend.append('idFormulario', "6");
           formDataToSend.append('hash', receipt.transactionHash);
+          formDataToSend.append('imagenIPFS', ipfs);
 
           // Enviar la solicitud POST al servidor
           axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
@@ -253,22 +252,13 @@ try {
             fullWidth
             margin="normal"
           />
-          <TextField
-            name="cosechaId"
-            label="ID de la Cosecha"
-            type="number"
-            value={formData.cosechaId}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-          />
           <FormControl fullWidth margin="normal">
             <InputLabel htmlFor="imagen">Imagen</InputLabel>
             <Input
               id="imagen"
               name="imagen"
               type="file"
-              onChange={handleImageChange}
+              onChange={e=>uploadFile(e.target.files)}
             />
           </FormControl>
           

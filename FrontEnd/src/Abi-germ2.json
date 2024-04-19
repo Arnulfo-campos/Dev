@@ -1,0 +1,343 @@
+ 
+  [
+    {
+      "inputs": [],
+      "name": "altitud",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "area",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "arena",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "cantidadChapolas",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ciudad",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "departamento",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "direccion",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "fechaFinal",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "fechaRegistro",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "humedad",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "latitud",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "longitud",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "nombreFinca",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "observacion",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "profundidad",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_profundidad",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_tipoGeminador",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_tipoSombra",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_area",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_arena",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_cantidadChapolas",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_observacion",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_fechaFinal",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_fechaRegistro",
+          "type": "string"
+        }
+      ],
+      "name": "setNames",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_departamento",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_ciudad",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_direccion",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_nombreFinca",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_latitud",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_longitud",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_altitud",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_temperatura",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_humedad",
+          "type": "string"
+        }
+      ],
+      "name": "setNamesTwo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "temperatura",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tipoGeminador",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tipoSombra",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]

@@ -13,6 +13,8 @@ public interface LoteUsuarioMapper {
     @Mapping(source = "idUsuario", target = "idUsuario")
     @Mapping(source = "idFormulario", target = "idFormulario")
     @Mapping(source = "hash", target = "hash")
+    @Mapping(source = "imagenIPFS", target = "imagenIPFS")
+    @Mapping(source = "NFT", target = "NFT")
     LoteUsuarioDTO loteUsuarioToDTO(LoteUsuario loteUsuario);
 
     @Mapping(source = "idLote", target = "idLote") // Ignora el idLote porque probablemente se genere automáticamente
@@ -20,5 +22,8 @@ public interface LoteUsuarioMapper {
     @Mapping(source = "idUsuario", target = "idUsuario")
     @Mapping(source = "idFormulario", target = "idFormulario")
     @Mapping(source = "hash", target = "hash")
+    @Mapping(source = "imagenIPFS", target = "imagenIPFS")
+    @Mapping(source = "NFT", target = "NFT")
+
     LoteUsuario dtoToLoteUsuario(LoteUsuarioDTO loteUsuarioDTO);
 }

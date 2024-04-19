@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../shared/DashboardCard';
@@ -6,6 +7,9 @@ import axios from 'axios';
 const { Web3 } = require('web3');
 
 const Tables = () => {
+  const idLote = localStorage.getItem('idLote');
+  const idCosecha = localStorage.getItem('idCosecha');
+
   const [data, setData] = useState(null);
   const [formData, setFormData] = useState([]);
   const hexToString = (hex) => {
@@ -20,7 +24,7 @@ const Tables = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      axios.get('http://localhost:8080/loteusuarios/formulario/1/1/4')
+      axios.get(`http://localhost:8080/loteusuarios/formulario/${idLote}/${idCosecha}/4`)
         .then(response => {
           setData(response.data);
         })
@@ -36,7 +40,7 @@ const Tables = () => {
     const fetchData = async () => {
       if (!data) return;
 
-      const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+      const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
        // Your contract's ABI and address
        const contractABI = [
         {
@@ -253,7 +257,7 @@ const Tables = () => {
     };
 
     fetchData();
-  }, [data]);
+  }, [data,idCosecha,idLote]);
 
   return (
     <PageContainer title="Tables" description="this is Tables">
