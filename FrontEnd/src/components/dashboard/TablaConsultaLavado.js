@@ -4,7 +4,8 @@ import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../shared/DashboardCard';
 import axios from 'axios';
 const { Web3 } = require('web3');
-
+const idLote = localStorage.getItem('idLote');
+const idCosecha = localStorage.getItem('idCosecha');
 const Tables = () => {
   const [data, setData] = useState(null);
   const [formData, setFormData] = useState([]);
@@ -20,7 +21,7 @@ const Tables = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      axios.get('http://localhost:8080/loteusuarios/formulario/1/1/6')
+      axios.get(`http://localhost:8080/loteusuarios/formulario/${idLote}/${idCosecha}/6`)
         .then(response => {
           setData(response.data);
         })
@@ -36,7 +37,7 @@ const Tables = () => {
     const fetchData = async () => {
       if (!data) return;
 
-      const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+      const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
        // Your contract's ABI and address
        const contractABI = [
         {
@@ -198,7 +199,6 @@ const Tables = () => {
                 <TableCell>Fecha Finalizacion</TableCell>
                 <TableCell>Peso Cafe Flotante</TableCell>
                 <TableCell>Observacion</TableCell>
-                <TableCell>Id Cosecha</TableCell>
                  </TableRow>
             </TableHead>
             <TableBody>
@@ -208,7 +208,6 @@ const Tables = () => {
                   <TableCell>{formDataItem.fechaFinal}</TableCell>
                   <TableCell>{formDataItem.pesoCafeFlotante}</TableCell>
                   <TableCell>{formDataItem.observacion}</TableCell>
-                  <TableCell>{formDataItem.cosechaId}</TableCell>
                   </TableRow>
               ))}
             </TableBody>

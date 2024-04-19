@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import lighthouse from '@lighthouse-web3/sdk'
 import { Typography, TextField, Button, InputLabel, Input, FormControl } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
@@ -21,82 +22,24 @@ const RegisterEnvasadoForm = () => {
     });
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2)
+  }
+  const uploadFile = (file) =>{
     setFormData({
       ...formData,
-      imagen: file // Establecer la imagen en el estado
+      imagen: file // Establecer la imagen convertida a Base64 en el estado
     });
-  };
+   }
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe por defecto
-    const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+    const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
     const contractABI = [
       {
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "_tipo",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_pesoAntes",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_pesoDespues",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_humedad",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_factor",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_fechaInicio",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_fechaFinalizacion",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "_observacion",
-            "type": "string"
-          }
-        ],
-        "name": "setNames",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
         "inputs": [],
-        "name": "factor",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "fechaFinalizacion",
+        "name": "fechaFinal",
         "outputs": [
           {
             "internalType": "string",
@@ -121,77 +64,30 @@ const RegisterEnvasadoForm = () => {
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "humedad",
-        "outputs": [
+        "inputs": [
           {
             "internalType": "string",
-            "name": "",
+            "name": "_fechaInicio",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_fechaFinal",
             "type": "string"
           }
         ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "observacion",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "pesoAntes",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "pesoDespues",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "tipo",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "stateMutability": "view",
+        "name": "setNames",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       }
     ];
-    const contractAddress = '0xF5fDac58dC71498fca5Dc4bf7766Aa0bbbc65785';
+    const contractAddress = '0xd1177BD4c4b4740Bb2fB3659d6a85559a884A142';
   
   // Create an instance of your contract
   const contract = new web3.eth.Contract(contractABI, contractAddress);
   
-      const txData = contract.methods.setNames(formData.tipoSecado, formData.pesoAntesSecado, formData.pesoFinalSecado, formData.humedad, formData.factor, formData.fechaInicio, formData.fechaFinal, formData.observacion).encodeABI();
+      const txData = contract.methods.setNames(formData.fechaFinal, formData.fechaInicial).encodeABI();
   
       // Get the current gas price
       const gasPrice = await web3.eth.getGasPrice();
@@ -207,12 +103,33 @@ const RegisterEnvasadoForm = () => {
   try {
     // Sign the transaction
     const signedTx = await web3.eth.accounts.signTransaction(tx, '291cc1845dc44faa2b2ab1b067827d9ad3dd61544b8df50691de00789f868825');
-  
+    const output = await lighthouse.upload(formData.imagen, "93222625.4a86e8b3f22f474aadbba0b5a4462f72", false, null, progressCallback)
+    const ipfs = 'https://gateway.lighthouse.storage/ipfs/' + output.data.Hash
+   
     // Send the signed transaction
     web3.eth.sendSignedTransaction(signedTx.rawTransaction)
         .on('receipt', (receipt) => {
             console.log(receipt);
-  
+            const formDataToSend = new FormData();
+            formDataToSend.append('idLote', "1");
+            formDataToSend.append('idCosecha', "1");
+            formDataToSend.append('idUsuario', "1019126544");
+            formDataToSend.append('idFormulario', "9");
+            formDataToSend.append('hash', receipt.transactionHash);
+            formDataToSend.append('imagenIPFS', ipfs);
+            // Enviar la solicitud POST al servidor
+            axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+            }).then(response => {
+            console.log(response.data);
+           // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
+            }).catch(error => {
+            console.error('Error al registrar:', error);
+            // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
+            });         
+           
             // Write the transaction hash to a text file
             console.log(receipt.transactionHash, (err) => {
                 if (err) throw err;
@@ -227,23 +144,6 @@ const RegisterEnvasadoForm = () => {
     console.log('Error submitting form.');
   }
    
-    const formDataToSend = new FormData();
-    formDataToSend.append('fechaInicial', formData.fechaInicial.toISOString());
-    formDataToSend.append('fechaFinal', formData.fechaFinal.toISOString());
-    formDataToSend.append('imagen', formData.imagen);
-
-    // Enviar la solicitud POST al servidor
-    axios.post('http://localhost:8080/envasado', formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      console.log(response.data);
-      // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
-    }).catch(error => {
-      console.error('Error al registrar:', error);
-      // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
-    });
   };
 
   return (
@@ -282,7 +182,7 @@ const RegisterEnvasadoForm = () => {
               id="imagen"
               name="imagen"
               type="file"
-              onChange={handleImageChange}
+              onChange={e=>uploadFile(e.target.files)}
             />
           </FormControl>
           

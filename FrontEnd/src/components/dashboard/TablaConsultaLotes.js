@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../shared/DashboardCard';
+
 import axios from 'axios';
 const { Web3 } = require('web3');
 
 const Tables = () => {
-  const [data, setData] = useState(null);
+  const { username} = useParams();
+  console.log(username)
   const [formData, setFormData] = useState([]);
   const hexToString = (hex) => {
     let str = '';
@@ -20,9 +23,8 @@ const Tables = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      axios.get('http://localhost:8080/loteusuarios/formulario/1019126544')
+      axios.get(`http://localhost:8080/loteusuarios/formulario/${username}/0`)
         .then(response => {
-          setData(response.data);
           setFormData(response.data)
         })
         .catch(error => {
@@ -31,9 +33,13 @@ const Tables = () => {
     };
 
     fetchData();
-  }, []);
+  }, [username]);
 
-
+  const handleRowClick = (formDataItem) => {
+    // Redireccionar a la página /dashboardConsulta con el ID del lote como parámetro
+   // history.push(`/dashboardConsulta/${formDataItem.idLote}`);
+   window.location.href = `/form/dashboardConsulta/${formDataItem.idLote}/${formDataItem.idCosecha}`;  
+  };
   return (
     <PageContainer title="Lotes de Cafe" description="Consulta de Lavado">
       <DashboardCard title="Lotes de cafe">
@@ -50,7 +56,7 @@ const Tables = () => {
             </TableHead>
             <TableBody>
               {formData.map((formDataItem, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} onClick={() => handleRowClick(formDataItem)}>
                   <TableCell>{formDataItem.Nombre}</TableCell>
                   <TableCell>{formDataItem.idLote}</TableCell>
                   <TableCell>{formDataItem.idCosecha}</TableCell>

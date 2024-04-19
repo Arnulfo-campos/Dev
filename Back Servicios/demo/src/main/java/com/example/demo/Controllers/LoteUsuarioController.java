@@ -54,9 +54,9 @@ public class LoteUsuarioController {
     return new ResponseEntity<>(lotesUsuarioPorFormulario, HttpStatus.OK);
     }
 
-    @GetMapping("/formulario/{idUsuario}")
-    public ResponseEntity<? extends Object> obtenerLotesUsuarioPorUsuario(@PathVariable Long idUsuario) {
-    List<LoteUsuarioDTO> lotesUsuarioPorUsuario = loteUsuarioService.obtenerLotesUsuarioPorUsuario(idUsuario);
+    @GetMapping("/formulario/{idUsuario}/{idFormulario}")
+    public ResponseEntity<? extends Object> obtenerLotesUsuarioPorUsuario(@PathVariable Long idUsuario,@PathVariable Long idFormulario) {
+    List<LoteUsuarioDTO> lotesUsuarioPorUsuario = loteUsuarioService.obtenerLotesUsuarioPorUsuario(idUsuario, idFormulario);
     return new ResponseEntity<>(lotesUsuarioPorUsuario, HttpStatus.OK);
     }
 

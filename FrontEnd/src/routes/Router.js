@@ -3,6 +3,7 @@ import { Navigate, useParams } from 'react-router-dom'; // Importa useParams des
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 
 /* ***Layouts**** */
+const FullLayoutConsulta = Loadable(lazy(() => import('../layouts/full/FullLayoutConsulta')));
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 /* ****Pages***** */
@@ -10,6 +11,7 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 /* ****Pages***** */
 const Minter = Loadable(lazy(() => import('../views/dashboard/Minter')))
 const Dashboard = Loadable(lazy(() => import('../views/dashboard/Dashboard')))
+const DashboardConsulta = Loadable(lazy(() => import('../views/authentication/dashboardConsulta')))
 const SamplePage = Loadable(lazy(() => import('../views/sample-page/SamplePage')))
 const Icons = Loadable(lazy(() => import('../views/icons/Icons')))
 const TypographyPage = Loadable(lazy(() => import('../views/utilities/TypographyPage')))
@@ -37,6 +39,7 @@ const Prueba = Loadable(lazy(() => import('../views/utilities/Prueba')))
 const ConsultaLavado = Loadable(lazy(() => import('../views/Tables/ConsultaLavado')))
 const ConsultaGerminacion = Loadable(lazy(() => import('../views/Tables/ConsultaGerminacion')))
 const ConsultaLotes = Loadable(lazy(() => import('../views/Tables/ConsultaLotes')))
+const ConsultaControlHierbas = Loadable(lazy(() => import('../views/Tables/ConsultaControlHierbas')))
 
 const Error = Loadable(lazy(() => import('../views/authentication/Error')));
 const Register = Loadable(lazy(() => import('../views/authentication/Register')));
@@ -54,6 +57,8 @@ const Router = [
       { path: '/', element: <Navigate to="/dashboard" /> },
       { path: '/minter', exact: true, element: <Minter /> },
       { path: '/dashboard', exact: true, element: <Dashboard /> },
+      { path: '/dashboardConsulta', exact: true, element: <DashboardConsulta /> },
+
       { path: '/sample-page', exact: true, element: <SamplePage /> },
       { path: '/icons', exact: true, element: <Icons /> },
       { path: '/ui/typography', exact: true, element: <TypographyPage /> },
@@ -72,15 +77,6 @@ const Router = [
       { path: '/ui/registroTostado', exact: true, element: <RegistroTostado /> },
       { path: '/ui/registroGerminacion', exact: true, element: <RegistroGerminacion /> },
       { path: '/ui/registroCrecimiento', exact: true, element: <RegistroCrecimiento /> },
-      { path: '/ui/ConsultaSemilla', exact: true, element: <ConsultaSemilla /> },
-      { path: '/ui/ConsultaAbono', exact: true, element: <ConsultaAbono /> },
-      { path: '/ui/ConsultaTostado', exact: true, element: <ConsultaTostado /> },
-      { path: '/ui/ConsultaSecado', exact: true, element: <ConsultaSecado /> },
-      { path: '/ui/ConsultaFungicida', exact: true, element: <ConsultaFungicida /> },
-      { path: '/ui/ConsultaLavado', exact: true, element: <ConsultaLavado /> },
-      { path: '/ui/ConsultaGerminacion', exact: true, element: <ConsultaGerminacion /> },
-      { path: '/ui/ConsultaLotes', exact: true, element: <ConsultaLotes /> },
-
       { path: '/ui/Prueba', exact: true, element: <Prueba /> },
 
       { path: '/ui/tables', exact: true, element: <Tables /> }, // Agregar ruta para Tables
@@ -93,12 +89,30 @@ const Router = [
     path: '/auth',
     element: <BlankLayout />,
     children: [
+      { path: '/auth/ConsultaLotes/:username', element: <ConsultaLotes /> },
       { path: '404', element: <Error /> },
       { path: '/auth/register', element: <Register /> },
       { path: '/auth/registerCultivadorInicial', exact: true, element: <RegisterCultivadorInicial /> }, // Agregar ruta para Tables
       { path: "/auth/registerCultivadorInicial/:nameParam/:identification", element: <RegisterCultivadorInicial />},
       { path: '/auth/login', element: <Login /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+    
+  },
+  {
+    path: '/form',
+    element: <FullLayoutConsulta />,
+    children: [
+      { path: '/form/dashboardConsulta/:idLote/:idCosecha', element: <DashboardConsulta /> },
+      { path: '/form/ConsultaSemilla', exact: true, element: <ConsultaSemilla /> },
+      { path: '/form/ConsultaAbono', exact: true, element: <ConsultaAbono /> },
+      { path: '/form/ConsultaTostado', exact: true, element: <ConsultaTostado /> },
+      { path: '/form/ConsultaSecado', exact: true, element: <ConsultaSecado /> },
+      { path: '/form/ConsultaFungicida', exact: true, element: <ConsultaFungicida /> },
+      { path: '/form/ConsultaLavado', exact: true, element: <ConsultaLavado /> },
+      { path: '/form/ConsultaGerminacion', exact: true, element: <ConsultaGerminacion /> },
+      { path: '/form/ConsultaControlHierbas', exact: true, element: <ConsultaGerminacion /> },
+
     ],
     
   },

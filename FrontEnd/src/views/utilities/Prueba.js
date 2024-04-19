@@ -9,12 +9,12 @@ const { Web3 } = require('web3');
 
 // Objeto JSON para el NFT
 const nftMetadata = {
-    "idLote": 20,
-    "idCosecha": 1,
-    "idUsuario": 1019126545,
-    "idFormulario": 4,
-    "hash": "0xe76a4b4227d4c59d1ec7272c8f6e03bac3187cfaef0af66f0f5382024072d2b1"
-};
+  "description" : "html de prueba",
+  "external_url" : "https://gateway.lighthouse.storage/ipfs/QmR353N3rHFjGbVmG8XHt6Hp9BB535uUNp9vGMTnC72sKK",
+  "image" : "https://gateway.lighthouse.storage/ipfs/QmbaYGKVrCKEHD5f1sqveGbe79Na7iCsGgt3PjrWgQVAte",
+  "name" : "Html de prueba",
+  "animation_url": "https://gateway.lighthouse.storage/ipfs/QmR353N3rHFjGbVmG8XHt6Hp9BB535uUNp9vGMTnC72sKK"
+  };
 
 // Función para mintear un NFT
 async function mintNFT() {

@@ -3,6 +3,9 @@ import { Typography, TextField, Button, MenuItem, FormControl, InputLabel, Selec
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 import axios from 'axios';
+import lighthouse from '@lighthouse-web3/sdk'
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const { Web3 } = require('web3');
 
 
@@ -38,368 +41,90 @@ const RegistroGerminacion = () => {
       [name]: name === 'arena' ? checked : value
     });
   };
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2)
+  }
+  const uploadFile = (file) =>{
+    setFormData({
+      ...formData,
+      imagen: file // Establecer la imagen convertida a Base64 en el estado
+    });
+   }
+   const exampleFunction = async () => {
+    const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
+    const contractABI = require('../../Abi-germ2.json'); // Reemplaza con la ruta correcta al archivo ABI
+    const contractAddress2= '0x5D6fd0C39172e6A799982bF7f22F146e47D0fc02';
+    const contract2 = new web3.eth.Contract(contractABI, contractAddress2);
+    const txData2 = contract2.methods.setNamesTwo(formData.departamento,formData.ciudad,formData.direccion,formData.nombreFinca,formData.ubicacionLatitud,formData.ubicacionLongitud,formData.altitud,formData.temperaturaMedia,formData.humedadMedia).encodeABI();
+    // Get the current gas price
+    const gasPrice = await web3.eth.getGasPrice();
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-      setFormData({
-        ...formData,
-        imagen: base64String
-      });
+    const tx2 = {
+      from: '0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba',
+      to: contractAddress2,
+      gas: web3.utils.toHex(600001), // You may need to adjust this value
+      gasPrice: web3.utils.toHex(gasPrice), // Use the current gas price
+      data: txData2
     };
-    reader.readAsDataURL(file);
-  };
+    
+try {
+  // Sign the transaction
+  const signedTx2 = await web3.eth.accounts.signTransaction(tx2, '291cc1845dc44faa2b2ab1b067827d9ad3dd61544b8df50691de00789f868825');
+  // Send the signed transaction
+  web3.eth.sendSignedTransaction(signedTx2.rawTransaction)
+      .on('receipt', (receipt) => {
+          console.log(receipt);
+
+          // Write the transaction hash to a text file
+          const formDataToSend = new FormData();
+            formDataToSend.append('idLote', "1");
+            formDataToSend.append('idCosecha', "1");
+            formDataToSend.append('idUsuario', "1019126544");
+            formDataToSend.append('idFormulario', "16");
+            formDataToSend.append('hash', receipt.transactionHash);            
+          // Enviar la solicitud POST al servidor
+          axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
+          headers: {
+          'Content-Type': 'application/json'
+          }
+          }).then(response => {
+          console.log(response.data);
+  console.log('Form submitted!');
+  // Send the signed transaction
+      }).catch(error => {
+      console.error('Error al registrar:', error);
+      // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
+      });
+      console.log(receipt.transactionHash, (err) => {
+          if (err) throw err;
+          console.log('The transaction hash was saved to transactionHash.txt!');
+      });
+  })
+  .on('error', console.error);
+
+         // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito 
+} catch (err) {
+  console.error(err);
+  console.log('Error submitting form.');
+}
+
+};
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe por defecto
     // Connect to the Sepolia testnet
-  const web3 = new Web3('https://sepolia.infura.io/v3/df798f3ffd1d4b35bdb14ac0c916eb3f');
-  const contractABI = [
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_profundidad",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_tipoGeminador",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_area",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_arena",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_cantidadChapolas",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_observacion",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_fechaFinal",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_fechaRegistro",
-          "type": "string"
-        }
-      ],
-      "name": "setNames",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_departamento",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_ciudad",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_direccion",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_nombreFinca",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_latitud",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_longitud",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_altitud",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_temperatura",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_humedad",
-          "type": "string"
-        }
-      ],
-      "name": "setNamesTwo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "altitud",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "area",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "arena",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "cantidadChapolas",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "ciudad",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "departamento",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "direccion",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "fechaFinal",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "fechaRegistro",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "humedad",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "latitud",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "longitud",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "nombreFinca",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "observacion",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "profundidad",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "temperatura",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "tipoGeminador",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "tipoSombra",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ];
-  const contractAddress = '0x32E7e46901a2a25a481F1c70925dCc6CA53bB495';
+  const web3 = new Web3('https://eth-sepolia.g.alchemy.com/v2/o_uOrTPKA850dQ8Ier3GSA3orgzr5JBq');
+  const contractABI = require('../../Abi-germ2.json'); // Reemplaza con la ruta correcta al archivo ABI
 
+  const contractAddress = '0x93aF9D2B201eB738eD5d2249Ffc41053A159A7d2';
 // Create an instance of your contract
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-    const txData = contract.methods.setNames(formData.profundidad, formData.tipoGerminador, formData.sombra, formData.area, formData.arena.toString(), formData.cantidadChapolasObtenidas, formData.observaciones, formData.fechaFinalGerminacion,
-    formData.fechaRegistro,formData.departamento,formData.ciudad,formData.direccion,formData.nombreFinca,formData.ubicacionLatitud,formData.ubicacionLongitud,formData.altitud,formData.temperaturaMedia,formData.humedadMedia).encodeABI();
+    const txData = contract.methods.setNames(formData.profundidad, formData.tipoGerminador,formData.sombra,formData.area, formData.arena.toString(),formData.cantidadChapolasObtenidas, formData.observaciones,formData.fechaFinalGerminacion,
+    formData.fechaRegistro).encodeABI();
 
     // Get the current gas price
     const gasPrice = await web3.eth.getGasPrice();
@@ -413,10 +138,13 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
     data: txData
 };
 
+
 try {
   // Sign the transaction
   const signedTx = await web3.eth.accounts.signTransaction(tx, '291cc1845dc44faa2b2ab1b067827d9ad3dd61544b8df50691de00789f868825');
-
+  const output = await lighthouse.upload(formData.imagen, "93222625.4a86e8b3f22f474aadbba0b5a4462f72", false, null, progressCallback)
+  const ipfs = 'https://gateway.lighthouse.storage/ipfs/' + output.data.Hash
+  
   // Send the signed transaction
   web3.eth.sendSignedTransaction(signedTx.rawTransaction)
       .on('receipt', (receipt) => {
@@ -424,33 +152,35 @@ try {
 
           // Write the transaction hash to a text file
           const formDataToSend = new FormData();
-          formDataToSend.append('idLote', "1");
-          formDataToSend.append('idCosecha', "1");
-          formDataToSend.append('idUsuario', "1019126544");
-          formDataToSend.append('idFormulario', "1");
-          formDataToSend.append('hash', receipt.transactionHash);
+            formDataToSend.append('idLote', "1");
+            formDataToSend.append('idCosecha', "1");
+            formDataToSend.append('idUsuario', "1019126544");
+            formDataToSend.append('idFormulario', "1");
+            formDataToSend.append('hash', receipt.transactionHash);
+            formDataToSend.append('imagenIPFS', ipfs);
+            
+  // Enviar la solicitud POST al servidor
+  axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
+    headers: {
+    'Content-Type': 'application/json'
+    }
+    }).then(response => {
+    console.log(response.data);
+   // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
+    }).catch(error => {
+    console.error('Error al registrar:', error);
+    // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
+    });
+    exampleFunction();
+    console.log(receipt.transactionHash, (err) => {
+      if (err) throw err;
+      console.log('The transaction hash was saved to transactionHash.txt!');
+  });
+})
+.on('error', console.error);     // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
+console.log('Form submitted!');
 
-          // Enviar la solicitud POST al servidor
-          axios.post('http://localhost:8080/loteusuarios', formDataToSend, {
-          headers: {
-          'Content-Type': 'application/json'
-          }
-          }).then(response => {
-          console.log(response.data);
-         // Puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje de éxito
-          }).catch(error => {
-          console.error('Error al registrar:', error);
-          // Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
-          });
-
-          console.log(receipt.transactionHash, (err) => {
-              if (err) throw err;
-              console.log('The transaction hash was saved to transactionHash.txt!');
-          });
-      })
-      .on('error', console.error);
-  
-  console.log('Form submitted!');
+// Puedes manejar el error como desees, por ejemplo, mostrar un mensaje de error
 } catch (err) {
   console.error(err);
   console.log('Error submitting form.');
@@ -663,7 +393,7 @@ try {
               id="imagen"
               name="imagen"
               type="file"
-              onChange={handleImageChange}
+              onChange={e=>uploadFile(e.target.files)}
             />
           </FormControl>
           
