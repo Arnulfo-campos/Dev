@@ -13,5 +13,6 @@ public interface LoteUsuarioRepository extends CrudRepository<LoteUsuario, Long>
     // Puedes agregar métodos adicionales si necesitas consultas personalizadas
     List<LoteUsuario> findByIdLoteAndIdCosechaAndIdFormulario(Long idLote, Long idCosecha, Long idFormulario);
     List<LoteUsuario> findByIdUsuarioAndIdFormulario(Long idUsuario, Long idFormulario);
+    List<LoteUsuario> findByIdLoteAndIdCosecha(Long idLote, Long idCosecha);
 
 }

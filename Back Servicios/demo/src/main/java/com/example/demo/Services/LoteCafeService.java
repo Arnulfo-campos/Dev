@@ -52,6 +52,7 @@ public class LoteCafeService {
         Optional<LoteCafe> loteCafeOptional = loteCafeRepository.findById(id);
         return loteCafeOptional.map(loteCafeMapper::loteCafeToDTO).orElse(null);
     }
+    
 
     @Transactional
     public LoteCafeDTO actualizarLoteCafe(Long id, LoteCafeDTO loteCafeDTO) {

@@ -10,6 +10,8 @@ public class LoteUsuarioDTO {
     private String hash;
     private String imagenIPFS;
     private String NFT;
+    private String Proceso;
+    private String FechaRegistro;
 
 
     // Getters y setters
@@ -76,5 +78,21 @@ public class LoteUsuarioDTO {
 
     public void setNFT(String nFT) {
         NFT = nFT;
+    }
+
+    public String getProceso() {
+        return Proceso;
+    }
+
+    public void setProceso(String proceso) {
+        Proceso = proceso;
+    }
+
+    public String getFechaRegistro() {
+        return FechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        FechaRegistro = fechaRegistro;
     }
 }
