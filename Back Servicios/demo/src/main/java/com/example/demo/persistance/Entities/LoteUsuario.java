@@ -31,6 +31,12 @@ public class LoteUsuario {
     @Column(name = "NFT")
     private String NFT;
 
+    @Column(name = "Proceso")
+    private String Proceso;
+
+    @Column(name = "fecha_registro")
+    private String FechaRegistro;
+
 
     public Long getIdLote() {
         return idLote;
@@ -94,6 +100,22 @@ public class LoteUsuario {
 
     public void setNFT(String nFT) {
         NFT = nFT;
+    }
+
+    public String getProceso() {
+        return Proceso;
+    }
+
+    public void setProceso(String proceso) {
+        Proceso = proceso;
+    }
+
+    public String getFechaRegistro() {
+        return FechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        FechaRegistro = fechaRegistro;
     }
     
 }

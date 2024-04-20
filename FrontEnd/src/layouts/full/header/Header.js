@@ -25,79 +25,128 @@ const Header = (props) => {
     color: theme.palette.text.secondary,
   }));
 
- 
   const [imagenesIpfs, setImagenesIpfs] = useState('');
-  const [ipfs, setipfs] = useState('');
-  const [ipfsJSON, setipsfJSON] = useState('');
-  const [jsonEnviar, setjsonEnviar] = useState({
-    Metadata: "",
-    apiKeyjson: "93222625.4a86e8b3f22f474aadbba0b5a4462f72",
-    nombreArchive: "JsoncorregidoArnulfo.json"
-  });
-
-  const enviarJSON = async (event) => {
-    setipfs('https://gateway.lighthouse.storage/ipfs/QmWY7N6kRY1LY7VGiGdxFzkUoygrvkSFhfJGRsXZzhcb2v')
-    setImagenesIpfs('https://gateway.lighthouse.storage/ipfs/QmQ77t6ofn5khmYV8UNfY8TdxNfvGDUzHrhFjG3DrCYTjJ')
-
-    setjsonEnviar(prevState => ({
-      ...prevState,
-      Metadata: `{"description" : "Generado por Aplicacion Trazabilidad","external_url" : "https://gateway.lighthouse.storage/ipfs/","image" : "${imagenesIpfs}","name":"Lote de trazabilidad","animation_url": "${ipfs}"}`
-    }));
-    const responseJSON = await lighthouse.uploadText(jsonEnviar.Metadata, jsonEnviar.apiKeyjson, jsonEnviar.nombreArchive)
-      setipsfJSON ('https://gateway.lighthouse.storage/ipfs/QmSYBM9miYZzUH5YMyNNqwq142PBc3HzKaByTsbZfEdQTL' + responseJSON.data.Hash);
+  const enviarJSON = async (imagenesIpfs, ipfs) => {
+   
+    const jsonEnviar = ({
+      Metadata: `{"description" : "Generado por Aplicacion Trazabilidad","external_url" : "https://gateway.lighthouse.storage/ipfs/","image" : "${imagenesIpfs}","name":"Lote de trazabilidad","animation_url": "${ipfs}"}`,
+      apiKeyjson: "93222625.4a86e8b3f22f474aadbba0b5a4462f72",
+      nombreArchive: "TrazabilidadJSONNFT.json"
+    });
+    const responseJSON = lighthouse.uploadText(jsonEnviar.Metadata, jsonEnviar.apiKeyjson, jsonEnviar.nombreArchive)
+      const ipfsJSON =('https://gateway.lighthouse.storage/ipfs/' + (await responseJSON).data.Hash);
       console.log(ipfsJSON);
+      enviarIPFS(ipfsJSON);
   }
-    const crearHtml = async (event) => {
+    const crearHtml = async () => {
+      
     try {
-      const response = await axios.get(`http://localhost:8080/loteusuarios/formulario/${idLote}/${idCosecha}/3`);
-      const data = response.data;
+      const Semilla = await axios.get(`http://localhost:8080/loteusuarios/formulario/${idLote}/${idCosecha}/3`);
+      const Germinacion = await axios.get(`http://localhost:8080/loteusuarios/cosecha/${idLote}/${idCosecha}`);
 
-      const items = data.map((element) => {
-        setImagenesIpfs(element.imagenIPFS);
+      // Obtener la última imagen del array data
+      const ultimaImagenIpfs = Germinacion.data[Germinacion.data.length - 1].imagenIPFS;
+
+   setImagenesIpfs(ultimaImagenIpfs); // Actualizar el estado con la última imagen
+     // const itemsSemilla = Semilla.data.map((element) => {
+      //  return `
+      //  <div class="card">
+      //  <img src=${element.imagenIPFS}>
+      //  <h1>Semilla</h1>
+      //  <p class="title">25 mayo 2024</p>
+      //  <p><button>Consultar</button></p>
+     // </div>
+      //  `;
+     // });
+      const itemsGerminacion = Germinacion.data.map((element) => {
         return `
-          <div>
-            <img src="${element.imagenIPFS}">
-            <h2>Semilla</h2>
-            <h3>Variedad</h3>
-          </div>
+        <div class="card">
+        <img src=${element.imagenIPFS}>
+        <h1>${element.proceso}</h1>
+        <p class="title">${element.fechaRegistro}</p>
+        <p><button>Consultar</button></p>
+      </div>
         `;
       });
 
       // Genera el contenido HTML
       let html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>My Web Page</title>
-        </head>
-        <body>
+      <!DOCTYPE html>
+      <html>
+      <head>
+  <style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+  flex-shrink: 0;
+  margin-right: 1cm;
+  }
+  
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
+  
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
+  
+  button:hover, a:hover {
+    opacity: 0.7;
+  }
+  </style>
+      </head>
+      <body>
+  
+  <h1><center>Cosecha 2024</center></h1>
+  <div style="display: flex;">  
       `;
 
       // Agrega cada elemento al HTML
-      items.forEach((item) => {
+     // itemsSemilla.forEach((item) => {
+     //   html += item;
+     // });
+      itemsGerminacion.forEach((item) => {
         html += item;
       });
 
       html += `
-        </body>
-        </html>
+          </div>
+          </body>
+          </html>
       `;
 
       // Crea un objeto Blob con el contenido HTML
       const blob = new Blob([html], { type: 'text/html' });
       // Convierte el Blob en un objeto File
-      const archivoFile = new File([blob], 'archivo_generado.html', { type: 'text/html' });
+      const archivoFile = new File([blob], 'HTMLTrazabilidad.html', { type: 'text/html' });
 
-      console.log(archivoFile); // Solo para demostración, puedes enviar archivoFile a IPFS u otro proceso aquí
-      const responseIpfs = await lighthouse.uploadText(archivoFile, jsonEnviar.apiKeyjson, 'NFTHtml.html');
-      setipfs('https://gateway.lighthouse.storage/ipfs/' + responseIpfs.data.Hash);
-      enviarJSON();
-      enviarIPFS();
+      const responseIpfs = await lighthouse.uploadText(archivoFile, '93222625.4a86e8b3f22f474aadbba0b5a4462f72', 'NFTHtml.html');
+      const ipfs=('https://gateway.lighthouse.storage/ipfs/' + responseIpfs.data.Hash);
+      // Si ultimaImagenIpfs no coincide con imagenesIpfs o ipfs no está vacío
+      enviarJSON(ultimaImagenIpfs, ipfs);
     } catch (error) {
       console.error('Error al obtener los datos:', error);
     }
   };
-  const enviarIPFS =async () => {
+  const enviarIPFS =async (ipfsJSON) => {
 
        const web3 = new Web3('https://rpc.sepolia.org');
        const contractABI =  require('../GenNft.json'); // Reemplaza con la ruta correcta al archivo ABI
@@ -105,7 +154,7 @@ const Header = (props) => {
      // Create an instance of your contract
    const contract = new web3.eth.Contract(contractABI, contractAddress);
    
-   const txData = contract.methods.safeMint('0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba', 'https://gateway.lighthouse.storage/ipfs/QmSYBM9miYZzUH5YMyNNqwq142PBc3HzKaByTsbZfEdQTL').encodeABI();
+   const txData = contract.methods.safeMint('0x3a6719753435dE3ea1B3aB39ac433AdeC188d2ba', ipfsJSON).encodeABI();
    
    // Get the current gas price
    const gasPrice = await web3.eth.getGasPrice();
